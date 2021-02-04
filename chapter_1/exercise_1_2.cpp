@@ -4,6 +4,12 @@
 #include <iostream>
 
 int main() {
-  std::cout << "hello world" << std::endl;
-  return -1;
+  // Exercise 1.3
+  std::cout << "Hello, World" << std::endl;
+  // Exercise 1.4
+  int v1 = 0, v2 = 0;
+  std::cin >> v1 >> v2;
+  std::cout << "v1 = " << v1 << "; v2 = " << v2 << "; product is " << v1 * v2
+            << std::endl;
+  return 0;
 }

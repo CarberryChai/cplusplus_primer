@@ -74,3 +74,16 @@ $ echo $?
 $ echo %ERRORLEVEL%
 ```
 
+## Using Names from the Standard Library
+
+`std::cout`中的`::`是作用域操作符，意思就是`cout` 是在一个叫做的`std`的`namespace`定义的。
+
+```c++
+int v1 = 0, v2 = 0;
+std::cin >> v1 >> v2;
+```
+
+`std::cin >> v1 >> v2;` 读取两个用户输入的值，输入操作符`>>`和输出操作符`<<`类似，其实就是位运算操作符的右移和左移的重载。
+
+**满足左结合律，返回左值**，等价于`(std::cin >> v1) >> v2;`
+
