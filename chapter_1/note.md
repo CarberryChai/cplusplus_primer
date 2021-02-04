@@ -1,0 +1,76 @@
+# Getting Started
+
+## Writing a single c++ program
+
+```c++
+#include <iostream>
+#include <vector>
+int main(int argc, char const *argv[]) {
+  std::vector<std::string> vec{"hello", "carberry", "chai"};
+  for (auto x : vec) std::cout << x << std::endl;
+}
+```
+
+每一个c++1 program包含一个或者很多函数，其中必须包含唯一一个`main`函数。操作系统调用`main`函数来启动一个c++ program.
+
+一个函数定义包括四个部分：
+
+- return type （返回类型）
+- Function name 
+- Parameter list （参数列表，可以为空）
+- Function body
+
+上例中，函数返回类型为`int`，函数名为`main`，参数为`int`类型的argc, 以及指向`char`类型的常量指针数组 argv,用来接收命令行参数。
+
+## Compiling and Executing Our Program
+
+我的操作系统为macos，所以这里我用clang++编译器。
+
+```shell
+$ clang++ main.cpp
+```
+
+```c++
+main.cpp:4:31: error: expected ';' at end of declaration
+  std::vector<std::string> vec{"hello", "carberry", "chai"};
+                              ^
+                              ;
+main.cpp:5:8: warning: 'auto' type specifier is a C++11 extension [-Wc++11-extensions]
+  for (auto x : vec) std::cout << x << std::endl;
+       ^
+main.cpp:5:15: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+  for (auto x : vec) std::cout << x << std::endl;
+              ^
+2 warnings and 1 error generated.
+```
+
+报错啦，因为我们的程序用了c++11的语法，需要明确指定语言版本
+
+```shell
+$ clang++ -std=c++17 main.cpp
+```
+
+执行我们编译好的可执行文件`a.out`
+
+```shell
+$ ./a.out
+hello
+carberry
+chai
+```
+
+我们还可以获取`main`函数返回的状态值
+
+在UNIX系统
+
+```shell
+$ echo $?
+0
+```
+
+在Windows系统
+
+```shell
+$ echo %ERRORLEVEL%
+```
+
