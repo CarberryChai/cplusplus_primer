@@ -87,3 +87,30 @@ std::cin >> v1 >> v2;
 
 **满足左结合律，返回左值**，等价于`(std::cin >> v1) >> v2;`
 
+## Flow of Control
+
+`statements`通常是按次序执行的：在一个代码块中，先执行第一句，再执行第二句，等等。
+
+### The while Statement
+
+​	while ( *condition* )
+
+​				*statement*
+
+只要给定`condition`是`true`，`while statement`会一直重复执行 `statement`
+
+写一个简单的`sum`函数，求1到10的和
+
+```c++
+#include <iostream>
+int sum() {
+  int total = 0, i = 1;
+  while(i <= 10) total += i++;
+  return total;
+}
+int main() {
+  std::cout << sum() << std::endl;
+}
+// 55
+```
+

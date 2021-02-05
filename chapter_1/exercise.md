@@ -91,3 +91,76 @@ std::cout << " is " << v1 + v2 << std::endl;
 
 ```
 
+## 1.8
+
+> Indicate which, if any, of the following output statements are legal:
+>
+> ```c++
+> std::cout << "/*";
+> std::cout << "*/";
+> std::cout << /* "*/" */;
+> std::cout << /* "*/" /* "/*" */;
+> ```
+>
+> After you’ve predicted what will happen, test your answers by compiling a program with each of these statements. Correct any errors you encounter.
+
+第三个打印语句不合法
+
+```c++
+std::cout << /* "*/" */; // 不合法
+```
+
+<img src="https://cdn.jsdelivr.net/gh/CarberryChai/oss@master/image/79SqdE-8VxYou.png" style="zoom:50%;" />
+
+至于上面是`valid pp token`，可以点击查看[连接](https://stackoverflow.com/questions/31320515/what-are-the-definitions-for-valid-and-invalid-pp-tokens)
+
+## 1.9
+
+> Write a program that uses a while to sum the numbers from 50 to 100.
+
+```c++
+#include <iostream>
+int sum(int stop) {
+  int total = 0, i = 50;
+  while (i <= stop) total += i++;
+  return total;
+}
+int main() {
+  std::cout << sum(100) << std::endl;
+}
+// 3825
+```
+
+## 1.10
+
+> In addition to the ++ operator that adds 1 to its operand, there is a decrement operator (--) that subtracts 1. Use the decrement operator to write a while that prints the numbers from ten down to zero.
+
+```c++
+#include <iostream>
+int main() {
+  int t = 10;
+  while(t >= 0) {
+    std::cout << t-- << std::endl;
+  }
+}
+```
+
+## 1.11
+
+> Write a program that prompts the user for two integers. Print each number in the range specified by those two integers.
+
+```c++
+#include <iostream>
+int main() {
+  int x = y = 0;
+  std::cin >> x >> y;
+    if (x >= y) {
+    while (x >= y) std::cout << x-- << std::endl;
+  } else {
+    while (x <= y) {
+      std::cout << x++ << std::endl;
+    }
+  }
+}
+```
+
