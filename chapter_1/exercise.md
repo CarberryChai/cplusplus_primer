@@ -17,6 +17,8 @@ hello world!
 Process finished with exit code 255
 ```
 
+至于为啥退出码是255呢？查看[Exit Codes With Special Meanings](https://tldp.org/LDP/abs/html/exitcodes.html)
+
 # 1.3
 
 > Write a program to print Hello, World on the standard output.
@@ -118,49 +120,17 @@ std::cout << /* "*/" */; // 不合法
 
 > Write a program that uses a while to sum the numbers from 50 to 100.
 
-```c++
-#include <iostream>
-int sum(int stop) {
-  int total = 0, i = 50;
-  while (i <= stop) total += i++;
-  return total;
-}
-int main() {
-  std::cout << sum(100) << std::endl;
-}
-// 3825
-```
+[answer](./exercise1_9.cpp)
 
 ## 1.10
 
 > In addition to the ++ operator that adds 1 to its operand, there is a decrement operator (--) that subtracts 1. Use the decrement operator to write a while that prints the numbers from ten down to zero.
 
-```c++
-#include <iostream>
-int main() {
-  int t = 10;
-  while(t >= 0) {
-    std::cout << t-- << std::endl;
-  }
-}
-```
+[answer](./exercise1_10.cpp)
 
 ## 1.11
 
 > Write a program that prompts the user for two integers. Print each number in the range specified by those two integers.
 
-```c++
-#include <iostream>
-int main() {
-  int x = y = 0;
-  std::cin >> x >> y;
-    if (x >= y) {
-    while (x >= y) std::cout << x-- << std::endl;
-  } else {
-    while (x <= y) {
-      std::cout << x++ << std::endl;
-    }
-  }
-}
-```
+[answer](./exercise1_11.cpp)
 
