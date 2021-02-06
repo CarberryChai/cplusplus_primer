@@ -114,3 +114,16 @@ int main() {
 // 55
 ```
 
+### The for Statement
+
+The `for` loop form:
+
+```c++
+for( init-statement; condition; expression ) {
+	// body
+}
+```
+
+`init-statement`是`for`的入口，只执行一次，通常用于定义并初始化一个变量，eg：`int val = 1;`，变量`val`作用域只在for有效。
+
+然后判断`condition`，如果为`true`执行`body`，反之跳出for循环, 再然后执行`expression`，通常用于更新条件的值，eg：`++val;`，执行完`expression`, 重新判断`condition`.

@@ -114,7 +114,7 @@ std::cout << /* "*/" */; // 不合法
 
 <img src="https://cdn.jsdelivr.net/gh/CarberryChai/oss@master/image/79SqdE-8VxYou.png" style="zoom:50%;" />
 
-至于上面是`valid pp token`，可以点击查看[连接](https://stackoverflow.com/questions/31320515/what-are-the-definitions-for-valid-and-invalid-pp-tokens)
+至于上面什么是`valid pp token`，可以点击查看[连接](https://stackoverflow.com/questions/31320515/what-are-the-definitions-for-valid-and-invalid-pp-tokens)
 
 ## 1.9
 
@@ -134,3 +134,68 @@ std::cout << /* "*/" */; // 不合法
 
 [answer](./exercise1_11.cpp)
 
+## 1.12
+
+> What does the following for loop do? What is the final value of sum?
+>
+> ```c++
+> int sum = 0;
+> for(int i = -100; i <= 100; ++i)
+>   sum += i;
+> ```
+
+这个`for` loop 是在求-100到100之间整数的和， 结果为0；
+
+## 1.13
+
+> Rewrite the first two exercises from § 1.4.1 (p. 13) using for loops.
+
+### 1.9
+
+```c++
+#include <iostream>
+int main() {
+  int total = 0;
+  for(int i = 50; i <= 100; ++i)
+    total += i;
+  std::cout << "result is : " << total << std::endl;
+}
+```
+
+### 1.10
+
+```c++
+#include <iostream>
+int main() {
+  for(int i = 10; i >= 0; --i)
+    std::cout << i << std::endl;
+}
+```
+
+## 1.14
+
+> Compare and contrast the loops that used a for with those using a while. Are there advantages or disadvantages to using either form?
+
+查看 [stack overflow](https://stackoverflow.com/questions/2950931/for-vs-while-in-c-programming)
+
+## 1.15
+
+> Write programs that contain the common errors discussed in the box on page 16. Familiarize yourself with the messages the compiler generates.
+
+```c++
+#include <iostream>
+int sum (int a, int b) {
+  return a + b;
+}
+int main() {
+  std::cout << "hello, world!" << std::endl // syntax errors: missing ;
+  int result = sum(1, '2') // Type errors
+  std::cout << "Result is : " << reasult << std::endl; // Declaration errors, spelling error, reasult is not defined
+}
+```
+
+## 1.16
+
+> Write your own version of a program that prints the sum of a set of integers read from cin.
+
+[answer](./exercise1_16.cpp)
