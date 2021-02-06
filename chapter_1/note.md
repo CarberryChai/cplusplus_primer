@@ -127,3 +127,29 @@ for( init-statement; condition; expression ) {
 `init-statement`是`for`的入口，只执行一次，通常用于定义并初始化一个变量，eg：`int val = 1;`，变量`val`作用域只在for有效。
 
 然后判断`condition`，如果为`true`执行`body`，反之跳出for循环, 再然后执行`expression`，通常用于更新条件的值，eg：`++val;`，执行完`expression`, 重新判断`condition`.
+
+## Reading an Unknown Number of Inputs
+
+```c++
+#include <iostream>
+int main() {
+  int sum = 0; value = 0;
+  while (std::cin >> value) sum += value;
+  std::cout << "Sum is : " << sum << std::endl;
+}
+```
+
+`std::cin >> value`输入操作符`>>`返回左操作对象，也就是`while`要测试`std::cin`输入对象的布尔值，也就是测试这个输入流的状态。
+
+如果输入的值是无效的，比如这个例子，要求输入整数，你输入非整数值就是无效的或者遇到`end-of-file`。一个无效状态的输入流对象`istream`会在条件判断时yield false值。
+
+### end-of-file
+
+当我们用键盘在控制台输入值时，不同系统有不同的惯例表示一个end-of-file.在window系统中，我们键入ctrl-z，表示end-of-file，在UNIX或者MacOS中式ctrl-d或者comman-d
+
+**提示**:tipping_hand_man:
+
+在Mac系统Clion中想要模拟end-of-file生效，必须是在debug模式下运行程序，run模式无效！
+
+<img src="https://cdn.jsdelivr.net/gh/CarberryChai/oss@master/image/dscezH-JIgUua.png" style="zoom:50%;" />
+
