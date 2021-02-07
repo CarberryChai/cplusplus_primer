@@ -199,3 +199,24 @@ int main() {
 > Write your own version of a program that prints the sum of a set of integers read from cin.
 
 [answer](./exercise1_16.cpp)
+
+## 1.17 And 1.18
+
+> - What happens in the program presented in this section if the input val- ues are all equal? What if there are no duplicated values?
+> - Compile and run the program from this section giving it only equal values as input. Run it again giving it values in which no number is repeated.
+
+[code](./exercise1_17.cpp)
+
+数字都不同：
+
+<img src="https://cdn.jsdelivr.net/gh/CarberryChai/oss@master/image/DUaL6Z-JJ2PuX.png" style="zoom:50%;" />
+
+数字都相同：
+
+<img src="https://cdn.jsdelivr.net/gh/CarberryChai/oss@master/image/mccJsv-NSDcLZ.png" style="zoom:50%;" />
+
+## 1.19
+
+> Revise the program you wrote for the exercises in § 1.4.1 (p. 13) that printed a range of numbers so that it handles input in which the first number is smaller than the second.
+
+[code](./exercise1_19.cpp)
