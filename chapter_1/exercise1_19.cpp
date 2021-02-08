@@ -9,10 +9,11 @@ void printNums(int low, int high) {
 
 int main() {
   int first = 0, second = 0;
+  std::cout << "Please enter your first number: " << std::endl;
   if (std::cin >> first) {
     while (std::cin >> second) {
       if (first >= second) {
-        std::cout << "the last number must be greater than the previous number"
+        std::cout << "the last number must be greater than the first number"
                   << std::endl;
         continue;
       } else

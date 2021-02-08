@@ -7,4 +7,4 @@ int sum(int start, int end) {
   while (start <= end) sum += start++;
   return sum;
 }
-int main() { std::cout << sum(50, 100) << std::endl; }
+int main() { std::cout << sum(1, 100) << std::endl; }

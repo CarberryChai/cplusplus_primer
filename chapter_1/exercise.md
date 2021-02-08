@@ -220,3 +220,24 @@ int main() {
 > Revise the program you wrote for the exercises in § 1.4.1 (p. 13) that printed a range of numbers so that it handles input in which the first number is smaller than the second.
 
 [code](./exercise1_19.cpp)
+
+## 1.21
+
+> Write a program that reads two Sales_item objects that have the same ISBN and produces their sum.
+
+[code](./exercise1_21.cpp)
+
+## 1.22
+
+> Write a program that reads several transactions for the same ISBN. Write the sum of all the transactions that were read.
+
+[code](./exercise1_22.cpp)
+
+<img src="https://cdn.jsdelivr.net/gh/CarberryChai/oss@master/image/RJ5uqE-ebvmAm.png" style="zoom:50%;" />
+
+## 1.23
+
+> Write a program that reads several transactions and counts how many transactions occur for each ISBN.
+
+[code](./exercise1_23.cpp)
+
