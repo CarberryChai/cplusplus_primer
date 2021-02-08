@@ -241,3 +241,9 @@ int main() {
 
 [code](./exercise1_23.cpp)
 
+## 1.25
+
+> Using the Sales_item.h header from the Web site, compile and exe- cute the bookstore program presented in this section.
+
+[code](./exercise1_25.cpp)
+
