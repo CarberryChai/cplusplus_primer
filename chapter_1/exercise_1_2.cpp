@@ -11,4 +11,5 @@ int main() {
   std::cin >> v1 >> v2;
   std::cout << "v1 = " << v1 << "; v2 = " << v2 << "; product is " << v1 * v2
             << std::endl;
+  // std::cout << "char size is " << sizeof(int) << std::endl;
 }
