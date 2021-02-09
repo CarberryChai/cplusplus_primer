@@ -88,3 +88,71 @@ Consider what happens when u is 0. On that iteration, we’ll print 0 and then e
 
 Expressions that mix signed and unsigned values can yield surprising results when the signed value is negative. It is essential to remember that signed values are auto- matically converted to unsigned.
 
+## Literals
+
+```c++
+20 // 十进制
+024 // 八进制
+0x14 // 十六进制
+```
+
+The type of an integer literal depends on its value and notation. By default, deci- mal literals are signed whereas octal and hexadecimal literals can be either signed or unsigned types.
+
+A decimal literal has the smallest type of int, long, or long long (i.e., the first type in this list) in which the literal’s value fits.
+
+Octal and hex- adecimal literals have the smallest type of int, unsigned int, long, unsigned long, long long, or unsigned long long in which the literal’s value fits.
+
+**There are no literals of type short.**
+
+Although integer literals may be stored in signed types, **technically speaking, the value of a decimal literal is never a negative number. If we write what appears to be a negative decimal literal, for example, -42, the minus sign is not part of the literal. The minus sign is an operator that negates the value of its (literal) operand.**
+
+By default, floating-point literals have type double. 
+
+```c++
+'a' // character literal
+“hello world” // string literal
+```
+
+The type of a string literal is **array** of **constant chars**. The compiler appends a null character (’\0’) to every string literal. Thus, the actual size of a string literal is one more than its apparent size.
+
+### Escape Sequences
+
+Some characters, such as backspace or control characters, have no visible image. Such characters are **nonprintable**.
+
+Other characters (single and double quotation marks, question mark, and backslash) have special meaning in the language. Our programs cannot use any of these characters directly. Instead, we use an escape se- quence to represent such characters. An escape sequence begins with a backslash. The language defines several escape sequences:
+
+newline \n		horizontal tab \t		alert(bell) \a
+
+vertial tab \v		backspace \b		double quote \"
+
+backslash \\		question mask \?		single quote \'
+
+carriage return \r		formfeed \f
+
+We can also write a generalized escape sequence, which is \x followed by one or more hexadecimal digits or a \ followed by one, two, or three octal digits. The value represents the numerical value of the character. Some examples (assuming the Latin-1 character set):
+
+\7	(bell)		\12	(newline)		\40	(blank)
+
+\0	(null)		\115	('M')		\x4d	('M')
+
+Note that if a \ is followed by more than three octal digits, only the first three are associated with the \. For example, "\1234" represents two characters: the char- acter represented by the octal value 123 and the character 4.
+
+### Specifying the Type of a Literal
+
+L'a'	// wide character literal, type is wchar_t
+
+u8"hi!"	// utf-8 string literal (utf-8 encodes a Unicode character in 8 bits)
+
+42ULL	// unsigned integer literal, type is unsigned long long
+
+1E-3F	// single-precision floating-point literal, type is float
+
+3.14159L	// extended-precision floating-point literal, type is long double
+
+### Boolean and Pointer Literals
+
+```c++
+bool test = false;
+```
+
+The word **nullptr** is a pointer literal.

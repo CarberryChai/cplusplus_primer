@@ -50,3 +50,58 @@ std::cout << u - i << std::endl; // 0
 
 [code](./exercise2_4.cpp)
 
+## 2.5
+
+> Determine the type of each of the following literals. Explain the differences among the literals in each of the four examples:
+
+(a) ’a’,L’a’,"a",L"a"
+
+character literal, wide character literal, string literal, string wide character literal
+
+(b) 10,10u,10L,10uL,012,0xC
+
+int, unsigned int, long, unsigned long, octal int, hexadecimal
+
+(c) 3.14,3.14f,3.14L
+
+double, float, long double
+
+(d) 10,10u,10.,10e-2
+
+int, unsigned int, double, double
+
+## 2.6
+
+> What, if any, are the differences between the following definitions:
+
+```c++
+int month = 9, day = 7; // valid, the type is int
+int month = 09, day = 07; // invalid digit '9' in octal constant
+```
+
+## 2.7
+
+> What values do these literals represent? What type does each have?
+
+(a) "Who goes with F\145rgus?\012"
+
+represent:  "Who goes with Fergus?(newline)"
+
+(b) 3.14e1L
+
+31.4 (long double)
+
+(c) 1024f
+
+ error: invalid digit 'f' in decimal constant
+
+(d) 3.14L
+
+3.14 (long double)
+
+## 2.8
+
+> Using escape sequences, write a program to print 2M followed by a newline. Modify the program to print 2, then a tab, then an M, followed by a newline.
+
+[code](./exercise2_8.cpp)
+
