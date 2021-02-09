@@ -105,3 +105,46 @@ represent:  "Who goes with Fergus?(newline)"
 
 [code](./exercise2_8.cpp)
 
+## 2.9
+
+> Explain the following definitions. For those that are illegal, explain what’s wrong and how to correct it.
+
+(a) std::cin >> int input_value;
+
+error: expected '(' for function-style cast or type construction
+
+```c++
+int input_value;
+std::cin >> input_value;
+```
+
+(b) int i = { 3.14 };
+
+ error: type 'double' cannot be narrowed to 'int' in initializer list [-Wc++11-narrowing]
+
+(c) double salary = wage = 9999.99;
+
+error: use of undeclared identifier 'wage'
+
+```c++
+double wage;
+double salary = wage = 9999.99;
+```
+
+(d) int i = 3.14;
+
+Ok, but the value will be truncated.
+
+## 2.10
+
+> What are the initial values, if any, of each of the following variables?
+
+```c++
+std::string global_str; // ""
+int global_int; // 0
+int main() {
+  int local_int; // variable 'local_int' is uninitialized when used here [-Werror,-Wuninitialized]
+  std::string local_str; // ""
+}
+```
+

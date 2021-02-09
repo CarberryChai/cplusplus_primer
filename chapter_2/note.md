@@ -156,3 +156,42 @@ bool test = false;
 ```
 
 The word **nullptr** is a pointer literal.
+
+## Variables
+
+A **variable** provides us with named storage that our programs can **manipulate**. Each variable in C++ has a type. The type determines the size and layout of the variable’s memory, the range of values that can be stored within that memory, and the set of **operations** that can be applied to the variable.
+
+### Initializers
+
+An object that is initialized gets the specified value at the moment it is created. The values used to initialize a variable can be arbitrarily complicated expressions.
+
+When a definition defines two or more variables, the name of each object becomes visible immediately. Thus, it is possible to initialize a variable to the value of one defined earlier in the same definition.
+
+```c++
+double price = 10.9, discount = price * 0.6; // ok: price is defined and initialized before it's used to initialize discount
+double salePrice = applyDiscount(price, discout);
+// ok: call applyDiscount and use the return value to initialize salePrice
+```
+
+### Default Initialization
+
+When we define a variable without an initializer, the variable is default initialized.
+
+What that default value is depends on the type of the variable and may also depend on where the variable is defined.
+
+The value of an object of built-in type that is not explicitly initialized depends on where it is defined. Variables defined outside any function body are initialized to zero.variables of built-in type defined inside a function are **uninitialized**.
+
+```c++
+#include <iostream>
+int a;
+int main() {
+  int b;
+  std::cout << a << std::endl; // 0
+   std::cout << b << std::endl; //variable 'b' is uninitialized when used here [-Werror,-Wuninitialized]
+}
+```
+
+**Each class controls how we initialize objects of that class type. In particular, it is up to the class whether we can define objects of that type without an initializer. If we can, the class determines what value the resulting object will have.**
+
+
+
