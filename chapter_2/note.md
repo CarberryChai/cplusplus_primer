@@ -193,5 +193,73 @@ int main() {
 
 **Each class controls how we initialize objects of that class type. In particular, it is up to the class whether we can define objects of that type without an initializer. If we can, the class determines what value the resulting object will have.**
 
+### Variable Declarations and Definitions
 
+To allow programs to be written in logical parts, C++ supports what is commonly known as separate compilation. Separate compilation lets us split our programs into several files, each of which can be compiled independently.
+
+To support separate compilation, C++ distinguishes between declarations and definitions.
+
+**A declaration makes a name known to the program. A file that wants to use a name defined elsewhere includes a declaration for that name. A definition creates the associated entity.**
+
+A variable declaration specifies the type and name of a variable. A variable definition is a declaration. In addition to specifying the name and type, a definition also allocates storage and may provide the variable with an initial value.
+
+**Variables must be defined exactly once but can be declared many times.**
+
+To use the same variable in multiple files, we must define that variable in one—and only one—file. Other files that use that variable must declare—but not define—that variable.
+
+### Scope of a Name
+
+A scope is a part of the program in which a name has a particular meaning. Most scopes in C++ are delimited by curly braces.
+
+The same name can refer to different entities in different scopes.
+
+```c++
+#include <iostream>
+
+int main() { // main has global scope
+  int sum = 0; // main function scope
+  for (int val = 1; val <= 10; ++val) // val has block scope
+    sum += val;
+  std::cout << "Sum of 1 to 10 inclusive is " << sum << std::endl;
+}
+```
+
+**It is usually a good idea to define an object near the point at which the object is first used.**
+
+## Compound Types
+
+### References
+
+A reference defines an alternative name for an object. A reference type "refers to" another type.
+
+We define a reference type by writing a **declarator** of the form **&d**, where d is the name being declared:
+
+```c++
+int ival = 1024;
+int &refVal = ival; // refVal refers to (is a another name for) ival
+int &refVal2; // error: a reference must be initialized
+```
+
+**Ordinarily, when we initialize a variable, the value of the iniializer is copied into the object we are creating. When we define a reference, instead of copying the initializer's value, we bind the reference to its initializer;**
+
+**Once initialized, a reference remains bound to ints initial object. The is no way to rebind a reference to refer to a different object.**
+
+**A reference is not an object. Instead, a reference is just another name for an already existing object.**
+
+### Reference Definitions
+
+```c++
+int i = 1024, i2 = 2048; // i and i2 are both ints
+int &r = i, r2 = i2; // r is a reference bound to i; r2 is an int
+int i3 = 1024, &ri = i3; // i3 is an int; ri is a reference bound to i3
+int &r3 = i3, &r4 = i2; // both r3 and r4 are references
+```
+
+the type of a reference and the object to which the reference refers must match exactly. **a reference may be bound only to an object, not to a literal or to the result of a more general expression:**
+
+```c++
+int &refVal4 = 10; // error: initializer must be an object
+double dval = 3.14;
+int &refVal5 = dval; // error: initializer must be an int object
+```
 

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef CPLUSPLUS_PRIMER_INCLUDE_SALES_ITEM_H_
 #define CPLUSPLUS_PRIMER_INCLUDE_SALES_ITEM_H_
 /*
@@ -37,6 +38,7 @@
 // Definition of Sales class and related functions goes here
 #include <iostream>
 #include <string>
+#include <utility>
 
 class Sales_item {
   // these declarations are explained section 7.2.1, p. 270
@@ -50,7 +52,7 @@ class Sales_item {
   // constructors are explained in section 7.1.4, pages 262 - 265
   // default constructor needed to initialize members of built-in type
   Sales_item() = default;
-  Sales_item(const std::string& book) : bookNo(book) {}
+  Sales_item(std::string book) : bookNo(std::move(book)) {}
   Sales_item(std::istream& is) { is >> *this; }
 
  public:

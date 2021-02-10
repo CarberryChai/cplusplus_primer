@@ -4,7 +4,7 @@
 
 > What are the differences between int, long, long long, and short? Between an unsigned and a signed type? Between a float and a double?
 
-## C++ guarantees `short` and `int` is **at least** 16 bits, `long` **at least** 32 bits, `long long` **at least** 64 bits.
+**C++ guarantees `short` and `int` is at least 16 bits, `long` at least 32 bits, `long long` at least 64 bits.**
 
 The `signed` can represent positive numbers, negative numbers and zero, while `unsigned` can only represent numbers no less than zero.
 
@@ -147,4 +147,111 @@ int main() {
   std::string local_str; // ""
 }
 ```
+
+## 2.11
+
+> Explain whether each of the following is a declaration or a definition:
+
+(a) extern int ix = 1024;
+
+definition
+
+(b) int iy;
+
+definition
+
+(c) extern int iz;
+
+declaration
+
+## 2.12
+
+> Which, if any, of the following names are invalid?
+
+```c++
+int double = 3.14; // invalid
+int _; // valid
+int catch-22; // invalid
+int 1_or_2 = 1; // invalid
+double Double = 3.14; // valid
+```
+
+## 2.13
+
+> What is the value of j in the following program?
+
+```c++
+int i = 42;
+int main() {
+  int i = 100;
+  int j = i; // 100;
+}
+```
+
+## 2.14
+
+>  Is the following program legal? If so, what values are printed?
+
+```c++
+	int i = 100, sum = 0;
+	for (int i = 0; i != 10; ++i)
+		sum += i;
+	std::cout << i << " " << sum << std::endl;
+```
+
+合法，打印：100 45
+
+## 2.15
+
+> Which of the following definitions, if any, are invalid? Why?
+
+(a) int ival = 1.01;
+
+(b) int &rval1 = 1.01;
+
+(c) int &rval2 = ival;    
+
+(d) int &rval3;
+
+(b) invalid; initializer must be an object 
+
+(d) invalid; references must be initialized.
+
+## 2.16
+
+> Which, if any, of the following assignments are invalid? If they are valid, explain what they do.
+>
+> ```c++
+> int i = 0, &r1 = i; double d = 0, &r2 = d;
+> ```
+>
+> 
+
+(a) r2 = 3.14159;
+
+Valid; assign 3.14159 to d;
+
+(b) r2 = r1;
+
+valid; assign 0 to d;
+
+(c) i=r2; 
+
+valid; 
+
+(d) r1=d;
+
+valid;
+
+## 2.17
+
+> What does the following code print?
+
+```c++
+int i, &ri = i;
+i = 5; ri = 10;
+std::cout << i < " " << ri << std::endl;
+```
+
+10 10
 
