@@ -305,3 +305,5 @@ void *pv = &pi; // ok: void* can hold the address value of any data pointer type
 pv = pd;
 ```
 
+## const Qualifier
+
