@@ -187,7 +187,7 @@ int a;
 int main() {
   int b;
   std::cout << a << std::endl; // 0
-   std::cout << b << std::endl; //variable 'b' is uninitialized when used here [-Werror,-Wuninitialized]
+  std::cout << b << std::endl; //variable 'b' is uninitialized when used here [-Werror,-Wuninitialized]
 }
 ```
 
@@ -261,5 +261,47 @@ the type of a reference and the object to which the reference refers must match 
 int &refVal4 = 10; // error: initializer must be an object
 double dval = 3.14;
 int &refVal5 = dval; // error: initializer must be an int object
+```
+
+### Pointers
+
+A pointer is a compound type that “points to” another type. Like references, point- ers are used for indirect access to other objects. Unlike a reference, a pointer is an object in its own right. Pointers can be assigned and copied;
+
+We define a pointer type by writing a **declarator** of the form ***d,** where d is the name being defined.
+
+```c++
+int *ip1, *ip2; // both ip1 and ip2 are pointers to int
+double dp, *dp2; // dp2 is a pointer to double; dp is a double
+```
+
+**A pointer holds the address of another object. We get the address of an object by usin the address-of operator (the & operator):**
+
+```c++
+int ival = 42;
+int *p = &ival; // p holds the address of ival; p is a pointer to ival
+```
+
+### Null Pointers
+
+A null pointer does not point to any object.
+
+There are several ways to obtain a null pointer:
+
+```c++
+int *p1 = nullptr; // equivalent to int *p1 = 0;
+int *p2 = 0; // directly initializes p2 from the literal constant 0
+```
+
+Given two valid pointers of the same type, we can compare them using the
+equality (==) or inequality (!=) operators. The result of these operators has type bool. **Two pointers are equal if they hold the same address and unequal otherwise**
+
+### void* Pointers
+
+The type void* is a special pointer type that can hold the address of any object. Like any other pointer, a void* pointer holds an address, but the type of the object at that address is unknown:
+
+```c++
+double pi = 3.14, *pd = &pi;
+void *pv = &pi; // ok: void* can hold the address value of any data pointer type
+pv = pd;
 ```
 

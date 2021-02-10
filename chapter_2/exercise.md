@@ -255,3 +255,103 @@ std::cout << i < " " << ri << std::endl;
 
 10 10
 
+## 2.18
+
+> Write code to change the value of a pointer. Write code to change the value to which the pointer points.
+
+```c++
+int main() {
+  int i = 42, a = 30, *p = &i;
+  p = &a;
+  *p = 12;
+  std::<< a << std::endl; // 12
+}
+```
+
+## 2.19
+
+> Explain the key differences between pointers and references.
+
+Definition:
+
+A pointer is a compound type that “points to” another type.
+
+A reference defines an alternative name for an object.
+
+Key difference:
+
+- a reference is just another name for an already exiting object; a pointer is an object in its own right.
+- Once initialized, a reference remains bound to its initial object. The is no way to rebind a reference to refer to a different object. Because there is no way to rebind a reference, references must be initialized; Pointers can be assigned and copied, a single pointer can point to several different objects over its lifetime. a point need not be initialized at the time it is defined.
+
+## 2.20
+
+> What does the following program do?
+
+```c++
+int i = 42; // i is an int
+int *p1 = &i; // p1 is a pointer that point to i
+*p1 = *p1 * *p1; // asigning the underlying value i to 42 * 42
+```
+
+## 2.21
+
+> Explain each of the following definitions. Indicate whether any are il- legal and, if so, why.
+
+```c++
+int i = 0;
+// (a)
+double *dp = &i; // 非法，dp指针所指向的对象的类型与i不同
+// (b)
+int *ip = i; 
+// 不合法，It is illegal to assign an int variable to a pointer, even if the variable’s value happens to be 0.
+// (c)
+int *p = &i; // 合法
+```
+
+## 2.22
+
+> Assuming p is a pointer to int, explain the following code:
+
+```c++
+if (p) // 判断p是否是一个nullptr
+if (*p) // 判断指针p所指向的对象是否为0
+```
+
+## 2.23
+
+> Given a pointer p, can you determine whether p points to a valid object? If so, how? If not, why not?
+
+No; Because more information needed to determine whether the pointer is valid or not;
+
+## 2.24
+
+> Why is the initialization of p legal but that of lp illegal?
+
+```c++
+int i = 42;
+void *p = &i;
+long *lp = &i;
+```
+
+p is a `void*` pointer which it can point to any type.
+
+for lp pointer: error: cannot initialize a variable of type 'long *' with an rvalue of type 'int *'
+
+For type safety, C++ forbids implicit conversions like `long *lp = &i;`, thus such code is illegal.
+
+## 2.25
+
+> Determine the types and values of each of the following variables.
+
+```c++
+// (a)
+int* ip, i, &r = i;
+// ip is a pointer to int; i is an int; r is a reference to i
+// (b)
+int i, *ip = 0;
+// i is an int; ip is a pointer to nullptr
+// (c)
+int* ip, ip2;
+// ip is a pointer to int; ip2 is an int
+```
+
