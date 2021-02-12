@@ -333,7 +333,7 @@ void *p = &i;
 long *lp = &i;
 ```
 
-p is a `void*` pointer which it can point to any type.
+p is a `void*` pointer which can point to any type.
 
 for lp pointer: error: cannot initialize a variable of type 'long *' with an rvalue of type 'int *'
 
@@ -355,3 +355,102 @@ int* ip, ip2;
 // ip is a pointer to int; ip2 is an int
 ```
 
+## 2.26
+
+> Which of the following are legal? For those that are illegal, explain why.
+
+(a)` const int buf;`
+
+ (b)` int cnt = 0; `
+
+(c)` const int sz = cnt;`
+
+ (d)` ++cnt; ++sz;`
+
+(a) illegal: must be initialized;
+
+(d): illegal: Once a const variable be created, its value can't be changed. 
+
+## 2.27
+
+> Which of the following initializations are legal? Explain why.
+
+(a)` int i = -1, &r = 0;`
+
+Illegal: a reference must refer to an object, not to a literal
+
+(b)` int *const p2 = &i2;`
+
+legal
+
+(c)` const int i = -1, &r = 0;`
+
+legal
+
+(d)` const int *const p3 = &i2;`
+
+legal
+
+(e)` const int *p1 = &i2;`
+
+legal
+
+(f) `const int &const r2; `
+
+Illegal `A reference is not an object, so we cannot make a reference itself const.`
+
+(g) `const int i2 = i, &r = i;`
+
+Legal 
+
+## 2.28
+
+> Explain the following definitions. Identify any that are illegal.
+
+(a)` int i, *const cp;`
+
+Illegal; const object must be initilized
+
+(b)` int *p1, *const p2;`
+
+Illegal: the same error as (a)
+
+(c) `const int ic, &r = ic;`
+
+Illegal: ic must be initilized
+
+(d) `const int *const p3;`
+
+illegal
+
+(e) `const int *p;`
+
+legal
+
+## 2.29
+
+> Uing the variables in the previous exercise, which of the following as- signments are legal? Explain why.
+
+(a) `i=ic;`
+
+legal
+
+(b)` p1=p3;`
+
+Illegal: p3 is const pointer to const int
+
+(c) `p1 = &ic;`
+
+Illegal: ic is const int
+
+(d)` p3 = &ic;`
+
+Illegal: p3 is const pointer
+
+(e) `p2=p1;`
+
+Illegal: p2 is const pointer
+
+(f)` ic=*p3;`
+
+Illegal: ic is const int

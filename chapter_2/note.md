@@ -307,3 +307,69 @@ pv = pd;
 
 ## const Qualifier
 
+### By Default, const Objects Are Local to a File
+
+```c++
+const int bufSize = 512;
+```
+
+To substitute the value for the variable, the compiler has to see the variable’s initializer. When we split a program into multiple files, every file that uses the const must have access to its initializer. In order to see the initializer, the variable must be defined in every file that wants to use the variable’s value.
+
+**To support this usage, yet avoid multiple definitions of the same variable, const variables are defined as local to the file.**
+
+Sometimes we have a const variable that we want to share across multiple files but whose initializer is not a constant expression. In this case, we don’t want the compiler to generate a separate variable in each file. Instead, we want the const object to behave like other (nonconst) variables. We want to define the const in one file, and declare it in the other files that use that object.
+
+**To define a single instance of a const variable, we use the keyword extern on both its definition and declaration(s):**
+
+```c++
+// file_1.cpp defines and initializes a const that is accessible to other files
+extern const int bufSize = fcn();
+// file_1.h
+extern const int bufSize; // same bufSize as defined in file_1.cpp
+```
+
+### References to const
+
+As with any other object, we can bind a reference to an object of a const type. To do so we use a reference to const, which is a reference that refers to a const type. Unlike an ordinary reference, a reference to const cannot be used to change the object to which the reference is bound:
+
+```c++
+const int ci = 1024;
+const int &r1 = ci; // ok: both reference and underlying object are const
+r1 = 42; // error: r1 is a reference to const
+int &r2 = ci; // error: nonconst reference to a const object
+```
+
+### A Reference to const May Refer to an Object That Is Not const
+
+**It is important to realize that a reference to const restricts only what we can do through that reference.**
+
+Binding a reference to const to an object says nothing about whether the underlying object itself is const. Because the underlying object might be nonconst, it might be changed by other means:
+
+```c++
+int i = 42;
+int &r1 = i; // r1 bound to i
+const int &r2 = i; // r2 also bound to i; but cannot be used to change i
+r1 = 0; // r1 is not const; i is now 0
+r2 = 0; // error: r2 is reference to const
+```
+
+### Pointers and const
+
+As with references, we can define pointers that point to either const or nonconst types. Like a reference to const, a pointer to const (§ 2.4.1, p. 61) may not be used to change the object to which the pointer points. We may store the address of a const object only in a pointer to const:
+
+```c++
+const double pi = 3.14;
+double •ptr = &pi; // error: ptr is a plain pointer
+const double *cptr = &pi; // ok: cptr may point to a double that is const
+*cptr = 42; // error: cannot assign to *cptr
+```
+
+The first exception is that we can use a pointer to const to point to a nonconst object:
+
+```c++
+double dval = 3.14; // dval is a double; its value can be changed
+cptr = &dval; // ok: but can't change dval through cptr
+```
+
+**Like a reference to const, a pointer to const says nothing about whether the object to which the pointer points is const. Defining a pointer as a pointer to const affects only what we can do with the pointer. It is important to remember that there is no guarantee that an object pointed to by a pointer to const won’t change.**
+
