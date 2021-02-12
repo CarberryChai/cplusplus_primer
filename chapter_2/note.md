@@ -373,3 +373,75 @@ cptr = &dval; // ok: but can't change dval through cptr
 
 **Like a reference to const, a pointer to const says nothing about whether the object to which the pointer points is const. Defining a pointer as a pointer to const affects only what we can do with the pointer. It is important to remember that there is no guarantee that an object pointed to by a pointer to const won’t change.**
 
+##  Top-Level const
+
+As we’ve seen, a pointer is an object that can point to a different object. As a result, we can talk independently about whether a pointer is const and whether the objects to which it can point are const.
+
+**We use the term top-level const to indicate that the pointer itself is a const. When a pointer can point to a const object, we refer to that const as a low-level const.**
+
+More generally, top-level const indicates that an object itself is const. **Top- level const can appear in any object type, i.e., one of the built-in arithmetic types, a class type, or a pointer type. Low-level const appears in the base type of com- pound types such as pointers or references. Note that pointer types, unlike most other types, can have both top-level and low-level const independently:**
+
+```c++
+int i = 0;
+int *const p1 = &i; // we can't change the value p1; const is top-level
+const int ci = 42; // we can't change ci; const is top-level
+const int *p2 = &ci; // we change p2; const is low-level
+const int *const p3 = p2; // right-most const is top-level, left-most is not
+const int &r = ci; // const in reference types is aways low-level
+```
+
+The distinction between top-level and low-level matters when we copy an object. When we copy an object, top-level consts are ignored:
+
+```c++
+i = ci; // ok: copying the value of ci; top-level const in ci is ignored
+p2 = p3; // ok: pointed-to type mathes; top-level const in p3 is ignored
+```
+
+Copying an object doesn’t change the copied object. As a result, it is immaterial whether the object copied from or copied into is const.
+
+**On the other hand, low-level const is never ignored. When we copy an object, both objects must have the same low-level const qualification or there must be a conversion between the types of the two objects. In general, we can convert a nonconst to const but not the other way round:**
+
+```c++
+int *p = p3; // error: p3 has a low-level const but p doesn't
+p2 = p3; // ok: p2 has the same low-level const qualification as p3
+p2 = &i; // ok: we can convert in* to const int*
+int &r = ci; // error: can't bind an ordinary int& to a const int object
+const int &r2 = i; // ok: can bind const int& to plain int
+```
+
+## constexpr and Constant Expressions
+
+**A constant expression is an expression whose value cannot change and that can be evaluated at compile time.**
+
+**A literal is a constant expression.**
+
+A const object that is initialized from a constant expression is also a constant expression.
+
+```c++
+const int max_files = 20; // max_files is a constant expression
+const int limit = max_files + 1; // limit is a constant expression
+int staff_size = 27; //  staff_size is not a constant expression
+const int sz = get_size(); // staff_size is not a constant expression, because its value is not known until run time
+```
+
+Under the new standard, we can ask the compiler to verify that a variable is a constant expression by declaring the variable in a **constexpr** declaration. Variables declared as constexpr are implicitly const and must be initialized by con- stant expressions:
+
+```c++
+constexpr int mf = 20; // 20 is a constant expression
+constexpr int limt = mf + 1; //  mf + 1 is a constant expression
+constexpr int sz = size(); // ok only if size is a constexpr function
+```
+
+Although we cannot use an ordinary function as an initializer for a constexpr variable, we’ll see in § 6.5.2 (p. 239) that the new standard lets us define certain functions as constexpr. Such functions must be simple enough that the com- piler can evaluate them at compile time. We can use constexpr functions in the initializer of a constexpr variable.
+
+## Pointers and constexpr
+
+It is important to understand that when we define a pointer in a constexpr dec- laration, the constexpr specifier applies to the pointer, not the type to which the pointer points:
+
+```c++
+const int *p = nullptr; // p is a pointer to a const int
+constexpr int *q = nullpte; // q is a const pointer to int
+```
+
+Despite appearances, the types of p and q are quite different; p is a pointer to const, whereas q is a constant pointer. **The difference is a consequence of the fact that constexpr imposes a top-level const (§ 2.4.3, p. 63) on the objects it defines.**
+
