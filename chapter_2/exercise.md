@@ -506,3 +506,90 @@ g = 42; // error: g is const int&
 
 > Write a program containing the variables and assignments from the previous exercise. Print the variables before and after the assignments to check whether your predictions in the previous exercise were correct. If not, study the exam- ples until you can convince yourself you know what led you to the wrong conclusion.
 
+[code](./exercise2_34.cpp)
+
+## 2.35
+
+> Determine the types deduced in each of the following definitions. Once you’ve figured out the types, write a program to see whether you were correct.
+
+```c++
+const int i = 42;
+auto j = i; // j is int
+const auto &k = i; // k is const int&
+auto *p = &i; // p is const int*
+const auto j2 = i, &k2 = i; // j2 is const int; k2 is const int&
+```
+
+[code](./exercise2_35.cpp)  (验证类型时鼠标hover在需要验证的变量上，类型就出来了……)
+
+## 2.36
+
+```c++
+int a = 3, b = 4;
+decltype(a) c = a; // c is int and its value is 3
+decltype((b)) d = a; // d is int& and is bound to a
+++c;
+++d;
+// a, b, c and d are all 4
+```
+
+## 2.37
+
+> Exercise 2.37: Assignment is an example of an expression that yields a reference type. The type is a reference to the type of the left-hand operand. That is, if i is an int, then the type of the expression i = x is int&. Using that knowledge, determine the type and value of each variable in this code:
+
+```c++
+int a = 3, b = 4;
+decltype(a) c = a; // c is int
+decltype(a = b) d = a; // d is int& and is bound to a
+```
+
+## 2.38
+
+> Describe the differences in type deduction between decltype and auto. Give an example of an expression where auto and decltype will deduce the same type and an example where they will deduce differing types.
+
+- The way decltype handles top-level const and references differs subtly from the way auto does. 
+- Another important difference between decltype and auto is that the deduc- tion done by decltype *depends on the form of its given expression.*
+
+```c++
+const int x = 12;
+auto y = x; // auto will ignore the top-level const, so y is int
+decltype(x) z; // error: z is const int and must be initilized
+decltype((x)) p = x; // p is const int& and is bound to x
+```
+
+## 2.39
+
+> Compile the following program to see what happens when you forget the semicolon after a class definition. Remember the message for future reference.
+
+```c++
+struct Foo {}
+int main() {}
+```
+
+[Error] expected ';' after struct definition
+
+## 2.40
+
+> Write your own version of the Sales_data class.
+
+```c++
+struct Sales_data {
+  std::string isbn;
+  unsigned units_sold = 0;
+  unsigned double price = 0.0;
+};
+int main() {
+  Sales_data book;
+}
+```
+
+## 2.41 and 2.42
+
+> Use your Sales_data class to rewrite the exercises in § 1.5.1 (p. 22), § 1.5.2 (p. 24), and § 1.6 (p. 25). For now, you should define your Sales_data class in the same file as your main function.
+
+[code](exercise2_42_1.cpp)
+
+[code](exercise2_42_2.cpp)
+
+[code](exercise2_42_3.cpp)
+

@@ -485,9 +485,45 @@ const char *cstr = 0; // wrong interpretation of const pstring cstr
 
 However, this interpretation is wrong. **When we use pstring in a declaration, the base type of the declaration is a pointer type.** **When we rewrite the declaration using char*, the base type is char and the * is part of the declarator.** In this case, **const char is the base type.** This rewrite declares cstr as a pointer to const char rather than as a const pointer to char.
 
+### The decltype Type Specifier
 
+Sometimes we want to define a variable with a type that the compiler deduces from an expression but do not want to use that expression to initialize the variable. For such cases, the new standard introduced a second type specifier, **decltype**, which returns the type of its operand**. The compiler analyzes the expression to determine its type but does not evaluate the expression:**
 
+The way decltype handles top-level const and references differs subtly from the way auto does.
 
+**When the expression to which we apply decltype is a variable, decltype returns the type of that variable, including top-level const and references:**
 
+```c++
+const int ci = 0, &cj = ci;
+decltype(ci) x = 0; // x has type const int
+decltype(cj) y = x; // y has type const int& and is bound to x
+decltype(cj) z; // error: z is a reference and must be initilized
+```
 
+Because `cj` is a reference, `decltype(cj)` is a reference type.
+
+**Generally speaking, decltype returns a reference type for expressions that yield objects that can stand on the left-hand side of the assignment:** 
+
+```c++
+int i = 42, *p = &i, &r = i;
+decltype(r + 0) b; // ok: addition yields an int; b is an int
+decltype(*p) c; // error: c is int& and must be initilized
+```
+
+Here r is a reference, so `decltype(r)` is a reference type. **If we want the type to which r refers, we can use r in an expression, such as r + 0, which is an expression that yields a value that has a nonreference type.**
+
+**As we’ve seen, when we dereference a pointer, we get the object to which the pointer points. Moreover, we can assign to that object. Thus, the type deduced by `decltype(*p)` is` int&`, not plain int.**
+
+Another important difference between `decltype` and `auto` is that the deduction done by `decltype` *depends on the form of its given expression.* What can be confusing is that enclosing the name of a variable in parentheses affects the type returned by `decltype`.
+
+**When we apply `decltype` to a variable without any parentheses, we get the type of that variable. If we wrap the variable’s name in one or more sets of parentheses, the compiler will evaluate the operand as an expression.**
+
+**A variable is an expression that can be the left-hand side of an assignment.** **As a result, decltype on such an expression yields a reference:**
+
+```c++
+decltype((i)) d; // error: d is int& and must be initilized
+decltype(i) e; // ok: e is an (uninitilized) int
+```
+
+**Remember that decltype((variable)) (note, double parentheses) is always a reference type, but decltype(variable) is a reference type only if variable is a reference.**
 
