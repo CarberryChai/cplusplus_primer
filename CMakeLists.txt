@@ -5,5 +5,3 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -std=c++17")
 foreach (num RANGE 1 3)
     add_subdirectory("chapter_${num}")
 endforeach ()
-
-add_subdirectory(Sales)

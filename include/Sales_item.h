@@ -28,14 +28,14 @@
  *     Fax: (201) 236-3290
  */
 
-/* This file defines the Sales class used in chapter 1.
+/* This file defines the book_store class used in chapter 1.
  * The code used in this file will be explained in
  * Chapter 7 (Classes) and Chapter 14 (Overloaded Operators)
  * Readers shouldn't try to understand the code in this file
  * until they have read those chapters.
  */
 
-// Definition of Sales class and related functions goes here
+// Definition of book_store class and related functions goes here
 #include <iostream>
 #include <string>
 #include <utility>
@@ -56,11 +56,11 @@ class Sales_item {
   Sales_item(std::istream& is) { is >> *this; }
 
  public:
-  // operations on Sales objects
+  // operations on book_store objects
   // member binary operator: left-hand operand bound to implicit this pointer
   Sales_item& operator+=(const Sales_item&);
 
-  // operations on Sales objects
+  // operations on book_store objects
   std::string isbn() const { return bookNo; }
   double avg_price() const;
   // private members as before
@@ -79,7 +79,7 @@ inline bool compareIsbn(const Sales_item& lhs, const Sales_item& rhs) {
 Sales_item operator+(const Sales_item&, const Sales_item&);
 
 inline bool operator==(const Sales_item& lhs, const Sales_item& rhs) {
-  // must be made a friend of Sales
+  // must be made a friend of book_store
   return lhs.units_sold == rhs.units_sold && lhs.revenue == rhs.revenue &&
          lhs.isbn() == rhs.isbn();
 }

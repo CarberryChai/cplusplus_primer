@@ -3,7 +3,7 @@
 //
 #include <iostream>
 
-#include "sales_data.h"
+#include "../include/Sales_data.h"
 int main() {
   Sales_data s1, s2;
   std::cin >> s1.isbn >> s1.units_sold >> s1.revenue;

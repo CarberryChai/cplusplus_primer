@@ -3,7 +3,7 @@
 //
 #include <iostream>
 
-#include "sales_data.h"
+#include "../include/Sales_data.h"
 
 int main() {
   Sales_data total;
