@@ -445,3 +445,49 @@ constexpr int *q = nullpte; // q is a const pointer to int
 
 Despite appearances, the types of p and q are quite different; p is a pointer to const, whereas q is a constant pointer. **The difference is a consequence of the fact that constexpr imposes a top-level const (§ 2.4.3, p. 63) on the objects it defines.**
 
+## Type Aliases
+
+A type alias is a name that is a synonym for another type. 
+
+- Traditional
+
+  ```c++
+  typedef double wages;
+  typedef wages base, *p; // base is a synonym for double, p for double
+  ```
+
+- New standard
+
+  ```c++
+  using SI = Sales_item;
+  SI item; // same as Sales_item item
+  ```
+
+### Pointers, const, and Type Aliases
+
+**Declarations that use type aliases that represent compound types and const can yield surprising results.**
+
+```c++
+typedef char *pstring;
+const pstring cstr = 0; // cstr is a constant pointer to char
+const pstring *ps; // ps is a pointer to a constant pointer to char
+```
+
+The base type in these declaration is` const pstring`. As usual, a `const` that appears in the base type modifies the given type.
+
+The type of `pstring` is "pointer to char" so, `const pstring` is a constant pointer to char --- not a pointer to const char.
+
+It can be tempting, albeit incorrect, to interpret a declaration that uses a type alias by conceptually replacing the alias with its corresponding type:
+
+```c++
+const char *cstr = 0; // wrong interpretation of const pstring cstr
+```
+
+However, this interpretation is wrong. **When we use pstring in a declaration, the base type of the declaration is a pointer type.** **When we rewrite the declaration using char*, the base type is char and the * is part of the declarator.** In this case, **const char is the base type.** This rewrite declares cstr as a pointer to const char rather than as a const pointer to char.
+
+
+
+
+
+
+

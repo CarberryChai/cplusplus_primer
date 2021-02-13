@@ -489,3 +489,20 @@ int null = 0, *p = null;
 
 illegal; `int null = 0, *p = nullprr;`
 
+## 2.33
+
+> Using the variable definitions from this section, determine what happens in each of these assignments:
+
+```c++
+a = 42; // set 42 to int a
+b = 42; // set 42 to int b
+c = 42; // set 42 to int c
+d = 42; // Error: d is int*, correct: *d = 42
+e = 42; // error: e is const int*
+g = 42; // error: g is const int&
+```
+
+## 2.34
+
+> Write a program containing the variables and assignments from the previous exercise. Print the variables before and after the assignments to check whether your predictions in the previous exercise were correct. If not, study the exam- ples until you can convince yourself you know what led you to the wrong conclusion.
+
