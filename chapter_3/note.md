@@ -166,3 +166,117 @@ The subscript(下标) operator (the [] operator) takes a string::size_type (§ 3
 The value in the subscript is referred to as “a subscript” or “an index.” The index we supply can be any expression that yields an integral value. However, **if our index has a signed type, its value will be converted to the unsigned type that string::size_type represents (§ 2.1.2, p. 36).**
 
 Any time we use a subscript, we must ensure that there is a value at the given location.
+
+## Library vector Type
+
+**A vector is a collection of objects, all of which have the same type.** Every object in the collection has an associated index, which gives access to that object. A vector is often referred to as a container because it “contains” other objects. 
+
+How we specify the information is always the same: We supply it inside a pair of angle brackets following the template’s name.
+
+In the case of vector, the additional information we supply is the type of the objects the vector will hold:
+
+```c++
+vector<int> ivec; // ivec holds objects of type int
+vector<Sales_item> Sales_vec; // holds Sales_items
+vector<vector<string>> file; // vector whose elements are vectors
+```
+
+**vector is a template, not a type. Types generated from vector must include the element type, for example, vector<int>.**
+
+## Defining and Initializing vectors
+
+As with any class type, the vector template controls how we define and initialize vectors. Table 3.4 (p. 99) lists the most common ways to define vectors.
+
+We can default initialize a vector (§ 2.2.1, p. 44), which creates an empty vector of the specified type:
+
+```c++
+vector<string> svec; // default initialization; svec has no elements
+vector<int> ivec; // initially empty
+vector<int> ivec2(ivec); // copy elemets of ivec into ivec2
+vector<int> ivec3 = ivec; //  copy elemets of ivec into ivec3
+vector<string> svec(ivec2); // error: svec holds strings, not ints
+```
+
+Another way to provide element values, is that under the new standard, we can list initialize (§ 2.2.1, p. 43) a vector from a list of zero or more initial element values enclosed in curly braces:
+
+```c++
+vector<string> articles = {"a", "an", "the"};
+```
+
+We can also initialize a vector from a count and an element value. The count de- termines how many elements the vector will have; the value provides the initial value for each of those elements:
+
+```c++
+vector<int> ivec(10, -1); // ten int elements, each initialized to -1
+vector<string> svec(10, "hi"); // ten strings; each element is "hi"
+```
+
+We can usually omit the value and supply only a size. In this case the library cre- ates a **value-initialized** element initializer for us. This library-generated value is used to initialize each element in the container. The value of the element initializer depends on the type of the elements stored in the vector.
+
+If the vector holds elements of a built-in type, such as int, then the element initializer has a value of 0. If the elements are of a class type, such as string, then the element initializer is itself **default initialized:**
+
+```c++
+vector<int> ivec(10); // ten elements, each initialized to 0
+vector<string> svec(10); // ten elements, each an empty string
+```
+
+There are two restrictions on this form of initialization: The first restriction is that some classes require that we always supply an **explicit initializer** (§ 2.2.1, p. 44). If our vector holds objects of a type that we cannot default initialize, then we must supply an initial element value; it is not possible to create vectors of such types by supplying only a size.
+
+
+
+**Ways to Initialize a vector:**
+
+| `vector<T> v1`                  | vector that holds objects of type T. Default initialization; v1 is empty. |
+| ------------------------------- | ------------------------------------------------------------ |
+| `vector<T> v2(v1)`              | v2 has a copy of each element in v1.                         |
+| `vector<T> v2 = v1`             | Equivalent to v2(v1), v2 is a copy of the elements in v1.    |
+| `vector<T> v3(n, val)`          | v3 has n elements with value val.                            |
+| `vector<T> v4(n)`               | v4 has n copies of a value-initialized object.               |
+| `vector<T> v5{a, b, c...}`      | v5 has as many elements as there are initializers; elements are initialized by corresponding initializers. |
+| `vector<T> v5 = {a, b, c ... }` | Equivalent to v5{a,b,c . . . }.                              |
+
+## List Initializer or Element Count?
+
+In a few cases, what initialization means depends upon whether we use curly braces or parentheses to pass the initializer(s).
+
+```c++
+vector<int> v1(10); // v1 has ten elements with value 0
+vector<int> v2{10}; // v2 has one element with value 0
+vector<int> v3{10, 1}; // v3 has ten elements with value 1
+vector<int> v4{10, 1}; // v4 has two elelmets with value 10 and 1
+```
+
+When we use parentheses, we are saying that the values we supply are to be used to construct the object. Thus, v1 and v3 use their initializers to determine the vector’s size, and its size and element values, respectively.
+
+On the other hand, if we use braces and there is no way to use the initializers to list initialize the object, then those values will be used to construct the object.
+
+```c++
+vector<string> v5{"hi"}; // list initialization: v5 has one element
+vector<string> v6("hi"); // error: can't construct a vector from a string literal
+vector<string> v7{10}; // v7 has ten default-initialized elements
+vector<string> v8{10, "hi"}; // v8 has ten elements with value "hi"
+```
+
+## Adding Elements to a vector
+
+As one example, if we need a vector with values from 0 to 9, we can easily use list initialization. What if we wanted elements from 0 to 99 or 0 to 999? List initialization would be too unwieldy. In such cases, it is better to create an empty vector and use a vector member named **push_back** to add elements at run time. The push_back operation takes a value and “pushes” that value as a new last element onto the “back” of the vector. For example:
+
+```c++
+vector<int> v2;
+for (int i = 0; i != 100; ++i)
+  v2.push_back(i); // append sequential integers to v2
+// at end of loopv2has 100 elements, values0. . .99
+```
+
+**vector Operations:**
+
+| `v.empty()`         | Returns true if v is empty; otherwise returns false.         |
+| ------------------- | ------------------------------------------------------------ |
+| `v.size()`          | Returns the number of elements in v.                         |
+| `v.push_back(t)`    | Adds an element with valuet to end of v.                     |
+| `v[n]`              | Returns a reference to the element at position n in v.       |
+| `v1 = v2`           | Replaces the elements in v1 with a copy of the elements in v2. |
+| `v1 = {a, b, c...}` | Replaces the elements in v1 with a copy of the elements in the comma-separated list. |
+| `v1 == v2`          | v1 and v2 are equal if they have the same number of elements and each |
+| `v1 != v2`          | element in v1 is equal to the corresponding element in v2.   |
+| `<,<=,>,>=`         | Have their normal meanings using dictionary ordering.        |
+

@@ -99,5 +99,50 @@ for (auto &c :s) {// ....}
 
 Yes, legal, the type of c is `const char&`
 
- 
+ ## 3.12
 
+> Which, if any, of the following vector definitions are in error? For those that are legal, explain what the definition does. For those that are not legal, explain why they are illegal.
+
+```c++
+vector<vector<int>> ivec; // legal; define a vector whose elements are vector
+vector<string> svec = ivec; // error: vector<vector<int>> can't assign to type of vector<string>
+vector<string> svec(10, "null"); // legal; svec has ten elements with value "null"
+```
+
+## 3.13
+
+> How many elements are there in each of the following vectors? What are the values of the elements?
+
+```c++
+vector<int> v1; // zero
+vector<int> v2(10) // v2 has ten elements with value 0
+vector<int> v3(10, 42); // v3 has ten elements with value 42
+vector<int> v4{10}; // v4 has one element with 10
+vector<int> v5{10, 42}; // v5 has two elements with value 10 and 42
+vector<string> v6{10}; // v6  has ten elements with value ""
+vector<string> v7{10, "hi"}; // v7 has ten elements with value "hi"
+```
+
+## 3.14
+
+> Write a program to read a sequence of ints from cin and store those values in a vector.
+
+[code](./exercise3_14.cpp)
+
+## 3.15
+
+> Repeat the previous program but read strings this time.
+
+[code](./exercise3_15.cpp)
+
+## 3.16
+
+> Write a program to print the size and contents of the vectors from exercise 3.13. Check whether your answers to that exercise were correct. If not, restudy § 3.3.1 (p. 97) until you understand why you were wrong.
+
+[code](./exercise3_16.cpp)
+
+## 3.17
+
+> Read a sequence of words from cin and store the values a vector. Af- ter you’ve read all the words, process the vector and change each word to uppercase. Print the transformed elements, eight words to a line.
+
+[code](./exercise3_17.cpp)
