@@ -146,3 +146,43 @@ vector<string> v7{10, "hi"}; // v7 has ten elements with value "hi"
 > Read a sequence of words from cin and store the values a vector. Af- ter you’ve read all the words, process the vector and change each word to uppercase. Print the transformed elements, eight words to a line.
 
 [code](./exercise3_17.cpp)
+
+## 3.18
+
+> Is the following program legal? If not, how might you fix it?
+>
+> ```c++
+> vector<int> ivec;
+> ivec[0] = 42;
+> ```
+>
+> 
+
+Illegal ;
+
+Fixed:
+
+```c++
+vector<int> ivec{0};
+ivec[0] = 42;
+```
+
+## 3.19
+
+> List three ways to define a vector and give it ten elements, each with the value 42. Indicate whether there is a preferred way to do so and why.
+
+- `vector<int> ivec(10, 42)`
+
+- `vector<int> ivec{42, 42, 42, 42, 42, 42, 42, 42, 42, 42}`
+
+- ```c++
+  vector<int> ivec(10);
+  for(auto &i : ivec) i = 42;
+  ```
+
+The first is best;
+
+## 3.20
+
+> Read a set of integers into a vector. Print the sum of each pair of adjacent elements. Change your program so that it prints the sum of the first and last elements, followed by the sum of the second and second-to-last, and so on.
+
