@@ -109,3 +109,60 @@ string s6 = s1 + ", " + "world"; // ok: each + has a string operand
 string s7 = "hello" + ", " + s2; //error: can't add string literals
 ```
 
+## Processing Every Character? Use Range-Based for
+
+If we want to do something to every character in a string, by far the best approach is to use a statement introduced by the new standard: the **range for** statement.
+
+**This statement iterates through the elements in a given sequence and performs some operation on each value in that sequence.** The syntactic form is
+
+​	for (*declaration* :  *expression*)
+
+​			*statement*
+
+A string represents a sequence of characters, so we can use a string as the expression in a **range for**.
+
+```c++
+string str("some thing");
+for (auto c : str)
+  cout << c << endl;
+```
+
+As a somewhat more complicated example, we’ll use a **range for** and the ispunct function to count the number of punctuation (标点符号)characters in a string:
+
+```c++
+string s("Hello World!!!");
+decltype(s.size()) punct_cny = 0;
+for (auto c : s)
+  if(ispunct(c)) ++punct_cnt;
+cout << punct_cnt << " punctuation characters in " << s << endl;
+// 3 punctuation characters in Hello World!!!
+```
+
+**cctype Functions:**
+
+| `isalnum(c)`  | cctype Functions                                             |
+| ------------- | ------------------------------------------------------------ |
+| `isalpha(c)`  | true if c is a letter.                                       |
+| `iscntrl(c)`  | true if c is a control character.                            |
+| `isdigit(c)`  | true if c is a digit.                                        |
+| `isgraph(c)`  | true if c is not a space but is printable.                   |
+| `islower(c)`  | true if c is a lowercase letter.                             |
+| `isprint(c)`  | true if c is a printable character (i.e., a space or a character that has a visible representation). |
+| `ispunct(c)`  | true if c is a punctuation character (i.e., a character that is not a control character, a digit, a letter, or a printable whitespace). |
+| `isspace(c)`  | true if c is whitespace (i.e., a space, tab, vertical tab, return, newline, or formfeed). |
+| `isupper(c)`  | true if c is an uppercase letter.                            |
+| `isxdigit(c)` | trueifcisahexadecimaldigit.                                  |
+| `tolower(c)`  | If c is an uppercase letter, returns its lowercase equivalent; otherwise returns c unchanged. |
+| `toupper(c)`  | If c is a lowercase letter, returns its uppercase equivalent; otherwise returns c unchanged. |
+
+## Processing Only Some Characters?
+
+A range for works well when we need to process every character. However, some- times we need to access only a single character or to access characters until some condition is reached. For example, we might want to capitalize only the first char- acter or only the first word in a string.
+
+There are two ways to access individual characters in a string: We can use a subscript or an iterator.
+
+The subscript(下标) operator (the [] operator) takes a string::size_type (§ 3.2.2, p. 88) value that denotes the position of the character we want to access. **The operator returns a reference to the character at the given position.**
+
+The value in the subscript is referred to as “a subscript” or “an index.” The index we supply can be any expression that yields an integral value. However, **if our index has a signed type, its value will be converted to the unsigned type that string::size_type represents (§ 2.1.2, p. 36).**
+
+Any time we use a subscript, we must ensure that there is a value at the given location.
