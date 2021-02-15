@@ -295,3 +295,20 @@ If so, values of array are undefined, we would get unexpected result when increm
 
 <img src="https://cdn.jsdelivr.net/gh/CarberryChai/oss@master/image/3wrhPB-ARR1Ss.png" style="zoom:50%;" />
 
+## 3.34
+
+> Given that p1 and p2 point to elements in the same array, what does the following code do? Are there values of p1 or p2 that make this code illegal?
+
+No , it's legal
+
+## 3.35
+
+> Using pointers, write a program to set the elements in an array to zero.
+
+[code](./exercise3_35.cpp)
+
+## 3.36
+
+> Write a program to compare two arrays for equality. Write a similar program to compare two vectors.]
+
+[code](./exercise3_36.cpp)

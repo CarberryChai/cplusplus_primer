@@ -440,3 +440,74 @@ Of course, there are no limits on how many type modifiers can be used:
 int *(&array)[10] = ptrs; // array is a reference to an array of ten pointers
 ```
 
+## Pointers and Arrays
+
+ In particular, as we’ll see, when we use an array, the compiler ordinarily converts the array to a pointer.
+
+Normally, we obtain a pointer to an object by using the address-of operator (§ 2.3.2, p. 52). Generally speaking, the address-of operator may be applied to any object. The elements in an array are objects. When we subscript an array, the result is the object at that location in the array. As with any other object, we can obtain a pointer to an array element by taking the address of that element:
+
+```c++
+string nums[] = {"one", "two", "three"}; // array of strings
+string *p = &nums[0]; // p points to the first element in nums
+```
+
+**However, arrays have a special property—in most places when we use an array, the compiler automatically substitutes a pointer to the first element:**
+
+```c++
+string *p2 = nums; // equivalent to p2 = &nums[0]
+```
+
+ **In most expressions, when we use an object of array type, we are really using a pointer to the first element in that array.**
+
+There are various implications of the fact that operations on arrays are often really operations on pointers. **One such implication is that when we use an array as an initializer for a variable defined using auto (§ 2.5.2, p. 68), the deduced type is a pointer, not an array:**
+
+```c++
+int ia[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}; // ia ia an array of ten ints
+auto ia2(ia); // ia2 ia an int* that poins to the first element in ia
+ia2 = 42; // error: ia2 is a pointer, and we can't assign an int to a pointer
+```
+
+**It is worth noting that this conversion does not happen when we use decltype. The type returned by decltype(ia) is array of ten ints:**
+
+```c++
+decltype(ia) ia3 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}; // ia is an array of ten ints
+ia3 = p; // error: can't assign an int* to an array
+ia[4] = i; // ok: assign the value of i to an element in ia3
+```
+
+## Pointers Are Iterators
+
+In particular, pointers to array elements support the same operations as iterators on vectors or strings (§ 3.4, p. 106). For example, we can use the increment operator to move from one element in an array to the next:
+
+```c++
+int arr[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+int *p = arr; // p points to the first element in arr
+++p; // p points to arr[1]
+```
+
+**Just as we can use iterators to traverse the elements in a vector, we can use pointers to traverse the elements in an array.**
+
+We can obtain an off-the-end pointer by using another special property of arrays. We can take the address of the nonexistent element one past the last element of an array:
+
+```c++
+int *e = &arr[10]; // pointer just past the last element in arr
+```
+
+Using these pointers we can write a loop to print the elements in arr as follows:
+
+```c++
+for (int *b = arr; b != e; ++b)
+  cout << *b << endl;
+```
+
+## The Library begin and end Functions
+
+Although we can compute an off-the-end pointer, doing so is error-prone. To make it easier and safer to use pointers, the new library includes two functions, named **begin** and **end**.
+
+```c++
+int ia[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+int *bg = begin(ia); // pointer to the first element in ia
+int *last = end(ia); // pointer one past the last element in ia
+```
+
+begin returns a pointer to the first, and end returns a pointer one past the last element in the given array: These functions are defined in the iterator header.
