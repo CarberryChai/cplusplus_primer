@@ -207,3 +207,23 @@ The first is best;
 > Write a program to create a vector with ten int elements. Using an iterator, assign each element a value that is twice its current value. Test your program by printing the vector.
 
 [code](./exercise3_23.cpp)
+
+## 3.24
+
+> Redo the last exercise from § 3.3.3 (p. 105) using iterators.
+
+[sum of each pair](./exercise3_24a.cpp)
+
+[sum of the first and the last](./exercise3_24b.cpp)
+
+## 3.25
+
+> Rewrite the grade clustering program from § 3.3.3 (p. 104) using iterators instead of subscripts.
+
+[code](./exercise3_25.cpp)
+
+## 3.26
+
+> In the binary search program on page 112, why did we write mid = beg +(end-beg)/2;instead ofmid=(beg+end)/2;?
+
+There's no operator `+` for adding two iterators.

@@ -354,3 +354,15 @@ To simplify expressions such as this one, the language defines the arrow operato
 
  **For now, it is important to realize that loops that use iterators should not add elements to the container to which the iterators refer.**
 
+## Iterator Arithmetic
+
+Iterators for string and vector support additional operations that can move an iterator multiple elements at a time. They also support all the relational operators. These operations, which are often referred to as **iterator arithmetic**, are described in Table 3.7.
+
+**Operations Supported by vector and string Iterators:**
+
+| `iter + n`    `iter - n`    | Adding (subtracting) an integral value n to (from) an iterator yields an iterator that many elements forward (backward) within the container. The resulting iterator must denote elements in, or one past the end of, the same container. |
+| :-------------------------- | ------------------------------------------------------------ |
+| `iter1 += n`   `iter1 -= n` | Compound-assignment for iterator addition and subtraction. Assigns to iter1 the value of adding n to, or subtracting n from, iter1. |
+| `iter1 - iter2`             | Subtracting two iterators yields the number that when added to the right-hand iterator yields the left-hand iterator. The iterators must denote elements in, or one past the end of, the same container. |
+| `>,>=,<,<=`                 | Relational operators on iterators. One iterator is less than another if it refers to an element that appears in the container before the one referred to by the other iterator. The iterators must denote elements in, or one past the end of, the same container. |
+
