@@ -1,19 +1,21 @@
 //
-// Created by 柴长林 on 2021/2/14.
+// Created by 柴长林 on 2021/2/15.
 //
 #include <iostream>
 #include <vector>
+using std::cout;
+using std::endl;
 using std::string;
 using std::vector;
 void print_vector(const vector<int> &vec) {
-  std::cout << vec.size() << " ";
-  for (auto v : vec) std::cout << v << " ";
-  std::cout << std::endl;
+  cout << vec.size() << " ";
+  for (auto it = vec.cbegin(); it != vec.cend(); ++it) cout << *it << " ";
+  cout << endl;
 }
 void print_vector(const vector<string> &vec) {
-  std::cout << vec.size() << " ";
-  for (const auto &v : vec) std::cout << v << " ";
-  std::cout << std::endl;
+  cout << vec.size() << " ";
+  for (auto it = vec.cbegin(); it != vec.cend(); ++it) cout << *it << " ";
+  cout << endl;
 }
 int main() {
   vector<int> v1;               // zero

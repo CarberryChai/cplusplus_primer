@@ -280,3 +280,77 @@ for (int i = 0; i != 100; ++i)
 | `v1 != v2`          | element in v1 is equal to the corresponding element in v2.   |
 | `<,<=,>,>=`         | Have their normal meanings using dictionary ordering.        |
 
+## Introducing Iterators
+
+Although we can use subscripts to access the characters of a string or the ele- ments in a vector, there is a more general mechanism—known as iterators—that we can use for the same purpose.
+
+Like pointers (§ 2.3.2, p. 52), iterators give us indirect access to an object. In the case of an iterator, that object is an element in a container or a character in a string. We can use an iterator to fetch an element and iterators have operations to move from one element to another. As with pointers, an iterator may be valid or invalid. A valid iterator either denotes an element or denotes a position one past the last element in a container. All other iterator values are invalid.
+
+## Using Iterators
+
+Types that have iterators have members that return iterators. In particular, these types have members named begin and end. The begin member returns an iterator that denotes the first element (or first character), if there is one:
+
+```c++
+auto b = v.begin(), e = v.end(); // b and e have the same type
+// b denotes the fisrt element and e denotes one past the last element in v
+```
+
+The iterator returned by **end** is an iterator positioned **“one past the end”** of the associated container (or string). This iterator denotes a **nonexistent** element **“off the end”** of the container. **It is used as a marker indicating when we have processed all the elements.**
+
+The iterator returned by end is often referred to as the **off-the- end** iterator or abbreviated as “the end iterator.” If the container is empty, begin returns the same iterator as the one returned by end.
+
+ **If the container is empty, the iterators returned by begin and end are equal—they are both off-the-end iterators.**
+
+## Iterator Operations
+
+As with pointers, **we can dereference an iterator to obtain the element denoted by an iterator.** Also, like pointers, we may dereference only a valid iterator that denotes an element (§ 2.3.2, p. 53). Dereferencing an invalid iterator or an off-the- end iterator has undefined behavior.
+
+```c++
+string s("some string");
+if (s.begin() != s.end()) { // make sure s is not empty
+  auto it = s.begin(); // it denotes the first character in s
+  *it = toupper(*it); // make that character uppercase
+}
+```
+
+**Standard Container Iterator Operations**:
+
+| `*iter*`         | Returns a reference to the element denoted by the iterator iter. |
+| ---------------- | ------------------------------------------------------------ |
+| `iter->mem`      | Dereferences iter and fetches the member named mem from the<br/>underlying element. Equivalent to (*iter).mem. |
+| `++iter`         | Increments iter to refer to the next element in the container. |
+| `--iter`         | Decrements iter to refer to the previous element in the container. |
+| `iter1 == iter2` | Compares two iterators for equality(inequality).Two iterators are equal |
+| `iter1 != iter2` | if they denote the same element or if they are the off-the-end iterator for<br/>the same container. |
+
+## Moving Iterators from One Element to Another
+
+Iterators use the increment (++) operator (§ 1.4.1, p. 12) to move from one element to the next. Incrementing an iterator is a logically similar operation to incrementing an integer. In the case of integers, the effect is to “add 1” to the integer’s value. **In the case of iterators, the effect is to “advance the iterator by one position.”**
+
+```c++
+// process characters in s until we run out of characters or we hit a whitespace
+for (auto it = s.begin(); it != s.end() && !isspace(*it); ++it)
+  *it = toupper(*it);
+```
+
+## Combining Dereference and Member Access
+
+When we dereference an iterator, we get the object that the iterator denotes. If that object has a class type, we may want to access a member of that object.
+
+For example, we might have a vector of strings and we might need to know whether a given element is empty. Assuming it is an iterator into this vector, we can check whether the string that it denotes is empty as follows:
+
+```c++
+(*it).empty();
+```
+
+For reasons we’ll cover in § 4.1.2 (p. 136), the parentheses in` (*it).empty() `are necessary. **The parentheses say to apply the dereference operator to it and to apply the dot operator (§ 1.5.2, p. 23) to the result of dereferencing it.** Without parentheses, the dot operator would apply to it, not to the resulting object:
+
+```c++
+(*it).empty(); // dereference it and calls the member empty on the resulting object
+*it.empty(); // error: attempts to fetch the member named empty from it, but it is an iterator and has no member named empty
+```
+
+To simplify expressions such as this one, the language defines the arrow operator (the **-> operator)**. The arrow operator combines dereference and member access into a single operation. That is,` it->mem `is a synonym for `(*it).mem`.
+
+ **For now, it is important to realize that loops that use iterators should not add elements to the container to which the iterators refer.**
+
