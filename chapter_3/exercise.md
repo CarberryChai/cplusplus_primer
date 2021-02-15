@@ -312,3 +312,63 @@ No , it's legal
 > Write a program to compare two arrays for equality. Write a similar program to compare two vectors.]
 
 [code](./exercise3_36.cpp)
+
+## 3.37
+
+> What does the following program do?
+
+```c++
+const char ca[] = {'h', 'e', 'l', 'l', 'o'};
+const char *cp = ca; // now cp points to the first element in array ca
+while(*cp) {
+  cout << *cp << endl; // print the character in ca
+  ++cp; // move cp to next element
+}
+// because ca has no null character (’\0’), the while loop won't be terminated as expected
+```
+
+## 3.38
+
+> In this section, we noted that it was not only illegal but meaningless to try to add two pointers. Why would adding two pointers be meaningless?
+
+------
+
+Answer:
+
+> Pointer addition is forbidden in C++, you can only subtract two pointers.
+>
+> The reason for this is that subtracting two pointers gives a logically explainable result - the offset in memory between two pointers. Similarly, you can subtract or add an integral number to/from a pointer, which means "move the pointer up or down". Adding a pointer to a pointer is something which is hard to explain. What would the resulting pointner represent?
+>
+> If by any chance you explicitly need a pointer to a place in memory whose address is the sum of some other two addresses, you can cast the two pointers to `int`, add `int`s, and cast back to a pointer. Remember though, that this solution needs huge care about the pointer arithmetic and is something you really should never do.
+
+[for detail](https://stackoverflow.com/questions/2935038/why-cant-i-add-pointers)
+
+## 3.39
+
+> Write a program to compare two strings. Now write a program to compare the values of two C-style character strings.
+
+[code](./exercise3_39.cpp)
+
+## 3.40
+
+> Write a program to define two character arrays initialized from string literals. Now define a third character array to hold the concatenation of the two arrays. Use strcpy and strcat to copy the two arrays into the third.
+
+[code](./exercise3_40.cpp)
+
+## 3.41
+
+> Write a program to initialize a vector from an array of ints.
+
+[code](./exercise3_41.cpp)
+
+## 3.42
+
+> Write a program to copy a vector of ints into an array of ints.
+
+[code](./exercise3_42.cpp)
+
+## 3.43、3.44、3.45
+
+> Write three different versions of a program to print the elements of ia. One version should use a range for to manage the iteration, the other two should use an ordinary for loop in one case using subscripts and in the other using pointers. In all three programs write all the types directly. That is, do not use a type alias, auto, or decltype to simplify the code.
+
+[code](./exercise3_43_44_45.cpp)
