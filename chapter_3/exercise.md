@@ -227,3 +227,71 @@ The first is best;
 > In the binary search program on page 112, why did we write mid = beg +(end-beg)/2;instead ofmid=(beg+end)/2;?
 
 There's no operator `+` for adding two iterators.
+
+## 3.27
+
+> Assuming txt_size is a function that takes no arguments and returns an int value, which of the following definitions are illegal? Explain why.
+
+```c++
+unsigned buf_size = 1024;
+int ia[buf_size]; // illegal; buf_size is not an constexpr
+int ia[4*7 - 14]; //legal; 
+int ia[txt_size()]; // illegal; the return type of txt_size function is not constexpr
+char str[11] = "fundamental"; // illegal; no space for null
+```
+
+## 3.28
+
+>  What are the values in the following arrays?
+
+```c++
+string sa[10]; // sa is array of ten string type with value ""
+int ia[10]; // ia is array of ten ints with value 0
+int main() {
+  string sa2[10]; // sa2 is array of ten string type with value ""
+  int ia[10]; // ia is array of ten ints with undefine value
+}
+```
+
+## 3.29
+
+> List some of the drawbacks of using an array instead of a vector.
+
+- Fixed size at compile time
+- No Api for array type
+
+## 3.30
+
+> Identify the indexing errors in the following code:
+
+```c++
+constexpr size_t array_size = 10;
+int ia[array_size];
+for (size_t ix = 1; ix <= array_size; ++ix)
+  		ia[ix] = ix;
+```
+
+across the  array boundary; when ix is 10, it's trying dereference an element out of range;
+
+## 3.31
+
+> Write a program to define an array of ten ints. Give each element the same value as its position in the array.
+
+[code](./exercise3_31.cpp)
+
+## 3.32
+
+> Copy the array you defined in the previous exercise into another array. Rewrite your program to use vectors.
+
+[code-part-a](./exercise3_32a.cpp)
+
+[code-part-b](./exercise3_32b.cpp)
+
+## 3.33
+
+>  What would happen if we did not initialize the scores array in the program on page 116?
+
+If so, values of array are undefined, we would get unexpected result when increment the undefined value.
+
+<img src="https://cdn.jsdelivr.net/gh/CarberryChai/oss@master/image/3wrhPB-ARR1Ss.png" style="zoom:50%;" />
+

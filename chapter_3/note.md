@@ -366,3 +366,77 @@ Iterators for string and vector support additional operations that can move an i
 | `iter1 - iter2`             | Subtracting two iterators yields the number that when added to the right-hand iterator yields the left-hand iterator. The iterators must denote elements in, or one past the end of, the same container. |
 | `>,>=,<,<=`                 | Relational operators on iterators. One iterator is less than another if it refers to an element that appears in the container before the one referred to by the other iterator. The iterators must denote elements in, or one past the end of, the same container. |
 
+## Defining and Initializing Built-in Arrays
+
+Arrays are a **compound type** (§ 2.3, p. 50). An array declarator has the form` a[d]`, where `a `is the name being defined and `d` is the dimension of the array. 
+
+**The number of elements in an array is part of the array’s type**. As a result, **the dimension must be known at compile time,** **which means that the dimension must be a constant expression** (§ 2.4.4, p. 65):
+
+```c++
+unsigned cnt = 42; // not a constant expression
+constexpr unsigned sz = 42; // constant expression
+int arr[10]; // array of ten ints
+int *parr[sz]; // array of 42 pointers to int
+string bad[cnt]; // error: cnt is not a constant expression
+string strs[get_size()]; //ok if get_size is constexpr, error otherwise 
+```
+
+**By default, the elements in an array are default initialized** 
+
+When we define an array, we must specify a type for the array. We cannot use auto to deduce the type from a list of initializers.
+
+## Explicitly Initializing Array Elements
+
+We can list initialize (§ 3.3.1, p. 98) the elements in an array. When we do so, we can omit the dimension. If we omit the dimension, the compiler infers it from the number of initializers. **If we specify a dimension, the number of initializers must not exceed the specified size. If the dimension is greater than the number of initializers, the initializers are used for the first elements and any remaining elements are value initialized (§ 3.3.1, p. 98):**
+
+```c++
+const unsigned sz = 3;
+int ia1[sz] = {0, 1, 2}; // array of three ints with values 0, 1, 2
+int a2[] = {1, 2, 3}; // an array of dimension 3
+int a3[5] = {1, 2, 3}; // equivalent to a3[] = {1, 2, 3, 0, 0}
+string a4[3] = {"hi", "bye"}; // same as a4[] = {"hi", "bye", ""}
+int a5[2] = {0, 1, 2}; // error: too many initializers
+```
+
+## Character Arrays Are Special
+
+We can initialize such arrays from a string literal (§ 2.1.3, p. 39). When we use this form of initialization, **it is important to remember that string literals end with a null character.** That null character is copied into the array along with the characters in the literal:
+
+```c++
+char a1[] = {'C', '+', '+'}; // list initialization, no null
+char a2[] = {'C', '+', '+', '\0'}; // list initialization, explicit null
+char a3[] = "C++";
+const char a4[6] = "Daniel"; // error: no space for the null
+```
+
+The dimension of a1 is 3; the dimensions of a2 and a3 are both 4.
+
+## No Copy or Assignment
+
+We cannot initialize an array as a copy of another array, nor is it legal to assign one array to another:
+
+```c++
+int a[] = {0, 1, 2};
+int a2[] = a; // error: cannot initialize one arry with another
+a2 = a; // error: cannot assign one array to another
+```
+
+## Understanding Complicated Array Declarations
+
+Like vectors, arrays can hold objects of most any type. For example, we can have an array of pointers. Because an array is an object, we can define both pointers and references to arrays. Defining arrays that hold pointers is fairly straightforward, defining a pointer or reference to an array is a bit more complicated:
+
+```c++
+int *ptrs[10]; // ptrs ia an array of ten pointers to int
+int &refs[10] = /* ? */ // error: no arrays of references
+int (*Parray)[10] = &arr; // Parray points to an array of ten ints
+int (&ArrRef)[10] = arr; // arrRef refers to an array of ten ints
+```
+
+By default, type modifiers bind right to left. Reading the definition of ptrs from right to left (§ 2.3.3, p. 58) is easy:
+
+Of course, there are no limits on how many type modifiers can be used:
+
+```c++
+int *(&array)[10] = ptrs; // array is a reference to an array of ten pointers
+```
+
