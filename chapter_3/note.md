@@ -282,9 +282,9 @@ for (int i = 0; i != 100; ++i)
 
 ## Introducing Iterators
 
-Although we can use subscripts to access the characters of a string or the ele- ments in a vector, there is a more general mechanism—known as iterators—that we can use for the same purpose.
+Although we can use subscripts to access the characters of a string or the elements in a vector, there is a more general mechanism—known as iterators—that we can use for the same purpose.
 
-Like pointers (§ 2.3.2, p. 52), iterators give us indirect access to an object. In the case of an iterator, that object is an element in a container or a character in a string. We can use an iterator to fetch an element and iterators have operations to move from one element to another. As with pointers, an iterator may be valid or invalid. A valid iterator either denotes an element or denotes a position one past the last element in a container. All other iterator values are invalid.
+Like pointers (§ 2.3.2, p. 52), iterators give us indirect access to an object. In the case of an iterator, that object is an element in a container or a character in a string. We can use an iterator to fetch an element and iterators have operations to move from one element to another. As with pointers, an iterator may be valid or invalid. **A valid iterator either denotes an element or denotes a position one past the last element in a container.** All other iterator values are invalid.
 
 ## Using Iterators
 

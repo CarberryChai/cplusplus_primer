@@ -109,3 +109,57 @@ vi = {0,1,2,3,4,5,6,7,8,9}; // vi now has ten elements, values 0 through 9
 
 Regardless of the type of the left-hand operand, the initializer list may be empty. In this case, the compiler generates a value-initialized (§ 3.3.1, p. 98) temporary and assigns that value to the left-hand operand.
 
+## Increment and Decrement Operators
+
+The increment (++) and decrement (--) operators provide a convenient notational shorthand for adding or subtracting 1 from an object.
+
+ **This prefix operators increment (or decrement) its operand and yields the changed object as its result. The postfix operators increment (or decrement) the operand but yield a copy of the original, unchanged value as its result:**
+
+```c++
+int i = 0, j;
+j = ++i; // j = 1, i = 1; prefix yields the incremented value
+j = i++; // j = 1, i = 2; postfix yields the unincremented value
+```
+
+These operators require lvalue operands. **The prefix operators return the object itself as an lvalue.** **The postfix operators return a copy of the object’s original value as an rvalue.**
+
+## Combining Dereference and Increment in a Single Expression
+
+```c++
+auto pbeg = v.begin();
+while(pbeg != v.end() && *pbeg >= 0)
+  cout << *pbeg++ <<endl; // print the current value and advance pbeg
+```
+
+The precedence of postfix increment is higher than that of the dereference operator, so `*pbeg++` is equivalent to `*(pbeg++)`.
+
+## The Bitwise Operators
+
+The bitwise operators take operands of integral type that they use as a collection of bits.
+
+<img src="https://cdn.jsdelivr.net/gh/CarberryChai/oss@master/image/8DPiEq-zXmCHe.png" style="zoom:50%;" />
+
+**If the operand is signed and its value is negative, then the way that the “sign bit” is handled in a number of the bitwise operations is machine dependent. Moreover, doing a left shift that changes the value of the sign bit is undefined.**
+
+ **Because there are no guarantees for how the sign bit is handled, we strongly recommend using unsigned types with the bitwise operators.**
+
+## The sizeof Operator
+
+The `sizeof` operator returns the size, in bytes, of an `expression` or a `type` name. The operator is right associative. The result of sizeof is a` constant expression` (§ 2.4.4, p. 65) of type `size_t` (§ 3.5.2, p. 116). The operator takes one of two forms:
+
+`sizeof (type)`
+
+`sizeof expr`
+
+```c++
+Sales_data data, *p;
+sizeof (Sales_data); // size required to hold an object of type Sales_data
+sizeof (data); // size of data's type, i.e., sizeof(Sales_data)
+sizeof (p); // size of a pointer
+sizeof (*p); // size of the type to which p points, i.e., sizeof(Sales_data)
+sizeof data.revenue; // size of the type of Sales_data's revenue member
+sizeof Sales_data::revenue; // alternative way to get the size of revenue
+```
+
+The most interesting of these examples is `sizeof *p`. First, because `sizeof` is right associative and has the same precedence as`*` *, this expression groups right to left. That is, it is equivalent to `sizeof (*p)`. **Second, because `sizeof` does not evaluate its operand, it doesn’t matter that p is an invalid (i.e., uninitialized) pointer (§ 2.3.2, p. 52).** **Dereferencing an invalid pointer as the operand to sizeof is safe because the pointer is not actually used. sizeof doesn’t need dereference the pointer to know what type it will return.**
+

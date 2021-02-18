@@ -183,3 +183,185 @@ if((p = getPtr()) != 0)
 if(i == 1024)
 ```
 
+## 4.17
+
+> Explain the difference between prefix and postfix increment.
+
+ This prefix operators increment (or decrement) its operand and yields the changed object as its result. The postfix operators increment (or decrement) the operand but yield a copy of the original, unchanged value as its result.
+
+## 4.18
+
+> What would happen if the while loop on page 148 that prints the elements from a vector used the prefix increment operator?
+
+```c++
+std::vector<int> vec{1, 2, 3, 4, 5, 6, 7, 8, 9};
+auto it = vec.begin();
+while (it != vec.end()) std::cout << *++it << " ";
+```
+
+Print `2 3 4 5 6 7 8 9 0 `, it will print from the second element and print `vec.end()`, which is undefined behaviour.
+
+## 4.19
+
+> Given that ptr points to an int, that vec is a vector<int>, and that ival is an int, explain the behavior of each of these expressions. Which, if any, are likely to be incorrect? Why? How might each be corrected?
+
+```c++
+ptr != 0 && *ptr++; // check out ptr is not a nullptr; and then check value the pointer points
+ival++ && ival; // check ival whether eaual to zero and do the same after ival+1
+vec[ival++] <= vec[ival];
+```
+
+The last is undefined behavior.
+
+`vec[ival] <= vec[ival+1];`
+
+## 4.20
+
+> Assuming that iter is a vector<string>::iterator, indicate which, if any, of the following expressions are legal. Explain the behavior of the le- gal expressions and why those that aren’t legal are in error.
+
+```c++
+*iter++; // legal; fetch the *iter and then iter++
+(*iter)++; // illegal; 后置递增运算符不能作用域string
+*iter.empty(); // illegal; iter 是一个迭代器对象没有empty成员函数，改为：(*iter).empty()
+iter->empty(); // legal; 判断字符串是否为空
+++*iter; // illegal;前置递增运算符++和dereference运算符*有相同的优先级，都是满足右结合律，相当于++(*iter),但字符串没有++操作
+iter++->empty();// return iter->empty(), then ++iter.
+```
+
+## 4.21
+
+> Write a program to use a conditional operator to find the elements in a vector<int> that have odd value and double the value of each such element.
+
+[code](./exercise4_21.cpp)
+
+## 4.22
+
+> Extend the program that assigned high pass, pass, and fail grades to also assign low pass for grades between 60 and 75 inclusive. Write two versions: One version that uses only conditional operators; the other should use one or more if statements. Which version do you think is easier to understand and why?
+
+[code](./exercise4_22.cpp)
+
+## 4.23
+
+> The following expression fails to compile due to operator precedence. Using Table 4.12 (p. 166), explain why it fails. How would you fix it?
+>
+> ```c++
+> string s = "word";
+> string pl = s + s[s.size() -1] == 's' ? "" : "s";
+> ```
+
+The `?:` precedence is lower then `+`;
+
+fixed:
+
+`string pl = s = (s[s.size() - 1] == 's' ? "" : "s")`;
+
+## 4.24
+
+> Our program that distinguished between high pass, pass, and fail de- pended on the fact that the conditional operator is right associative. Describe how that operator would be evaluated if the operator were left associative.
+
+ if the operator were left associative:
+
+```c++
+finalgrade = ((grade > 90) ? "high pass" : (grade < 60)) ? "fail" : "pass";
+```
+
+## 4.25
+
+> What is the value of ~’q’ << 6 on a machine with 32-bit ints and 8 bit chars, that uses Latin-1 character set in which ’q’ has the bit pattern 01110001?
+
+```c++
+int x = 0b10001110000000;
+```
+
+## 4.26
+
+> In our grading example in this section, what would happen if we used unsigned int as the type for quiz1?
+
+The C++ standard does not specify the size of integral types in bytes, but it specifies minimum ranges they must be able to hold. The minimum range of `unsigned int` is 0 to 65535. Since some implementations use only the minimum 16 bits for `unsigned int`, this could cause undefined behavior.
+
+## 4.27
+
+> What is the result of each of these expressions?
+
+```c++
+unsigned long ul1 = 3, ul2 = 7;
+ul1 & ul2; // 3
+ul1 | ul2; // 7
+ul1 && ul2; // true
+ul1 || ul2; // true
+```
+
+## 4.28
+
+> Write a program to print the size of each of the built-in types.
+
+[code](./exercise4_28.cpp)
+
+## 4.29
+
+> Predict the output of the following code and explain your reasoning. Now run the program. Is the output what you expected? If not, figure out why.
+
+```c++
+int x[10]; int *p = x;
+cout << sizeof(x) / sizeof(*x) << endl; // 10
+cout << sizeof(p) / sizeof(*p) << endl; // undefined behavior
+```
+
+## 2.30
+
+> Using Table 4.12 (p. 166), parenthesize the following expressions to match the default evaluation:
+
+```c++
+sizeof x +y; // sizeof(x) + y; sizeof优先级大于+
+sizeof p->mem[i]; // sizeof((p->mem)[i])
+sizeof a < b; // sizeof(a) < b
+sizeof f(); // sizeof (f())
+```
+
+## 4.31
+
+> The program in this section used the prefix increment and decrement operators. Explain why we used prefix and not postfix. What changes would have to be made to use the postfix versions? Rewrite the program using postfix operators.
+
+------
+
+
+
+> **Advice: Use Postfix Operators only When Necessary**
+
+> Readers from a C background might be surprised that we use the prefix increment in the programs we've written. The reason is simple: The prefix version avoids unnecessary work. It increments the value and returns the incremented version.The postfix operator must store the original value so that it can return the unincremented value as its result. If we don’t need the unincremented value, there’s no need for the extra work done by the postfix operator.
+
+> For ints and pointers, the compiler can optimize away this extra work. For more complicated iterator types, this extra work potentially might be more costly. By habitually using the prefix versions, we do not have to worry about whether the performance difference matters. Moreover—and perhaps more importantly—we can express the intent of our programs more directly.
+
+Make no change to use the postfix version
+
+Rewrite the program:
+
+```c++
+vector<int>::size_type cnt = ivec.size();
+for (vector<int>::size_type ix = 0; ix != ivec.size(); ix++, cnt--)
+  ivec[ix] = cnt;
+```
+
+## 4.32
+
+> Explain the following loop.
+
+```c++
+constexpr int size = 5;
+int ia[size] = {1, 2, 3, 4, 5};
+for (int *ptr = ia, ix = 0; ix != size && ptr != ia + size; ++iz, ++ptr){
+  // ....
+}
+```
+
+The pointer `ptr` and index `ix` have the same function.
+
+## 4.33
+
+> Using Table 4.12 (p. 166) explain what the following expression does:
+
+```c++
+someValue ? ++x, ++y : --x, --y; 
+// 如果 someValue 为 true，x, y 都加1，返回y
+```
+
