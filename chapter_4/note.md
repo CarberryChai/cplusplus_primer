@@ -163,3 +163,49 @@ sizeof Sales_data::revenue; // alternative way to get the size of revenue
 
 The most interesting of these examples is `sizeof *p`. First, because `sizeof` is right associative and has the same precedence as`*` *, this expression groups right to left. That is, it is equivalent to `sizeof (*p)`. **Second, because `sizeof` does not evaluate its operand, it doesn’t matter that p is an invalid (i.e., uninitialized) pointer (§ 2.3.2, p. 52).** **Dereferencing an invalid pointer as the operand to sizeof is safe because the pointer is not actually used. sizeof doesn’t need dereference the pointer to know what type it will return.**
 
+## Array to Pointer Conversions
+
+**In most expressions, when we use an array, the array is automatically converted to a pointer to the first element in that array:**
+
+```c++
+int ia[10]; // array of ten ints
+int *ip = ia; // convert ia to a pointer to the first element
+```
+
+**This conversion is not performed when an array is used with `decltype` or as the operand of the address-of (`&`), `sizeof`, or `typeid` (which we’ll cover in § 19.2.2 (p. 826)) operators. The conversion is also omitted when we initialize a reference to an array (§ 3.5.1, p. 114). As we’ll see in § 6.7 (p. 247), a similar pointer conversion happens when we use a function type in an expression.**
+
+## Explicit Conversions
+
+A named cast has the following form:
+
+cast-name<type> (expression);
+
+where type is the target type of the conversion, and expression is the value to be cast. If type is a reference, then the result is an lvalue. The cast-name may be one of `static_cast`, `dynamic_cast`, `const_cast`, and `reinterpret_cast`.
+
+### `static_cast`
+
+**Any well-defined type conversion, other than those involving low-level const, can be requested using a static_cast.** For example, we can force our expression to use floating-point division by casting one of the operands to double:
+
+```c++
+int i, j;
+double slope = static_cast<double>(j) / i;
+```
+
+A static_cast is often useful when a larger arithmetic type is assigned to a smaller type. 
+
+A static_cast is also useful to perform a conversion that the compiler will not generate automatically. For example, we can use a static_cast to retrieve a pointer value that was stored in a void* pointer (§ 2.3.2, p. 56):
+
+```c++
+void* p = &d; // ok: address of any nonconst object can be stored in a void*
+double *dp = static_cast<double*>(p); // ok: converts void* back to the original pointer type
+```
+
+### `const_cast`
+
+A const_cast changes only a low-level (§ 2.4.3, p. 63) const in its operand:
+
+```c++
+const char *pc;
+char *p = const_cast<char*>(pc); // ok: but writing through p is ndefined
+```
+

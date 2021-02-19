@@ -365,3 +365,61 @@ someValue ? ++x, ++y : --x, --y;
 // 如果 someValue 为 true，x, y 都加1，返回y
 ```
 
+## 4.34
+
+> Given the variable definitions in this section, explain what conversions take place in the following expressions:
+
+```c++
+if(fval) // fval converted to bool
+dval = fval + ival;// ival converted to float, the result of the addition converted to double
+ dval + ival * cval; // cval converted to int, then that int and ival converted to double.
+```
+
+## 4.35
+
+> Given the following definitions,
+>
+> ```c++
+> char cval; int ival; unsigned int ui; 
+> float fval; double dval;
+> ```
+>
+> identify the implicit type conversions, if any, taking place:
+
+```c++
+cval = 'a' + 3; // the literal char 'a' converted to int,and then the result converted to char
+fval = ui - ival * 1.0; // ival converted to double, ui converted to double, then  that double converted(by truncation) to float.
+dval = ui * fval; // ui promoted to float, and then float converted to double
+cval = ival + fval + dval; // ival converted to float, and then that float converted to double, and then converted to char
+```
+
+## 4.36
+
+> Assuming i is an int and d is a double write the expression i *= d so that it does integral, rather than floating-point, multiplication.
+
+```c++
+i *= static_cast<int>(d);
+```
+
+## 4.37
+
+> Rewrite each of the following old-style casts to use a named cast:
+
+```c++
+int i; double d; const string *ps; char *pc; void *pv;
+pv = static_cast<void*>(const_cast<string*>(ps));
+i = static_cast<ibnt>(*pc);
+pv = static_cast<void*>(&d);
+pc = static_cast<char*>(pv);
+```
+
+## 4.38
+
+> Explain the following expression:
+
+```c++
+double slope = static_cast<double>(j/i);
+```
+
+`j/i `is an int(by truncation), then converted to double and assigned to slope.
+
