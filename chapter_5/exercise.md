@@ -58,6 +58,141 @@ Correct:
 ```c++
 bool status;
 while(status = find(word)) {/* .... */}
-while(bool status = find(word)) {/* .... */}
+if (!status) {/* .... */}
+```
+
+## 5.5
+
+> Using an if–else statement, write your own version of the program to generate the letter grade from a numeric grade.
+
+[code](./exercise5_5.cpp)
+
+## 5.6
+
+> Rewrite your grading program to use the conditional operator (§ 4.7, p. 151) in place of the if–else statement.
+
+[code](./exercise5_6.cpp)
+
+## 5.7
+
+> Correct the errors in each of the following code fragments:
+
+- ```c++
+  if (ival1 != ival2) ival1 = ival2;
+  else ival1 = ival2 = 0;
+  ```
+
+- ```c++
+  if (ival < minval) {
+    minval = ival;
+    occurs = 1;
+  }
+  ```
+
+- ```c++
+  if (int ival = get_value()) {
+    cout << "ival = " << ival << endl;
+    if(!ival) cout << "ival = 0\n";
+  }
+  ```
+
+- ```c++
+  if (ival == 0) ival = get_value();
+  ```
+
+## 5.8
+
+> What is a “dangling else”? How are else clauses resolved in C++?
+
+“dangling else” is the problem how we know to which if a given else belongs.
+
+In C++ the ambiguity is resolved by specifying that each else is matched with the closest preceding unmatched if.
+
+## 5.9
+
+> Write a program using a series of if statements to count the number of vowels in text read from cin.
+
+[code](./exercise5_9.cpp)
+
+## 5.10
+
+> There is one problem with our vowel-counting program as we’ve im- plemented it: It doesn’t count capital letters as vowels. Write a program that counts both lower- and uppercase letters as the appropriate vowel—that is, your program should count both ’a’ and ’A’ as part of aCnt, and so forth.
+
+[code](./exercise5_10.cpp)
+
+## 5.11
+
+> Modify our vowel-counting program so that it also counts the number of blank spaces, tabs, and newlines read.
+
+[code](./exercise5_11.cpp)
+
+## 5.12
+
+> Modify our vowel-counting program so that it counts the number of occurrences of the following two-character sequences: ff, fl, and fi.
+
+## 5.13
+
+> Each of the programs in the highlighted text on page 184 contains a common programming error. Identify and correct each error.
+
+```c++
+// (a)
+unsigned aCnt = 0, eCnt = 0, iouCnt = 0;
+char ch = next_text();
+switch (ch) {
+  case 'a': aCnt++; break;
+  case 'e': eCnt++; break;
+  default: iouCnt++;
+} // 缺少break语句
+```
+
+------
+
+```c++
+// (b)
+unsigned index = some_value();
+int ix;
+switch (index) {
+  case 1:
+    ix = get_value();
+    ivec[ix] = index;
+    break;
+  default:
+    ix = ivec.size() -1;
+    ivec[ix] = index;
+} // error: control bypasses an explicitly initialized variable
+```
+
+------
+
+```c++
+unsigned evenCnt = 0, oddCnt = 0;
+int digit = get_num() % 10;
+switch (digit) {
+  case 1: case 3: case 5: case 7: case 9:
+    oddCnt++;
+    break;
+  case 2: case 4: case 6: case 8: case 10:
+    eventCnt++;
+    break;
+}
+```
+
+------
+
+```c++
+const unsigned ival = 512, jval = 1024, kval = 4096;
+unsigned bufsize;
+unsigned swt = get_bufCnt();
+switch (swt) {
+  case ival:
+    bufsize = ival * sizeof(int);
+    break;
+  case jval:
+    bufsize = jval * sizeof(int);
+    break;
+  case kval:
+    bufsize = kval * sizeof(int);
+    break;
+} // nonconstant as case label
 ```
 
