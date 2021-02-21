@@ -196,3 +196,72 @@ switch (swt) {
 } // nonconstant as case label
 ```
 
+## 5.14
+
+> Write a program to read strings from standard input looking for du- plicated words. The program should find places in the input where one word is fol- lowed immediately by itself. Keep track of the largest number of times a single repeti- tion occurs and which word is repeated. Print the maximum number of duplicates, or else print a message saying that no word was repeated. For example, if the input is
+>
+> > how now now now brown cow cow
+>
+> the output should indicate that the word now occurred three times.
+
+[code](./exercise5_14.cpp)
+
+## 5.15
+
+> Explain each of the following loops. Correct any problems you detect.
+
+```c++
+for (int x = 0; ix != sz; ++ix) { 
+	if(ix != sz)
+    // ...
+}
+// can't access ix outside for loop
+```
+
+------
+
+```c++
+int ix;
+for (; ix != sz; ++ix) { /* ... */ }
+// 初始化语句不能省略，可以为空
+```
+
+------
+
+```c++
+for (int ix = 0; ix != sz; ++ix) {}
+```
+
+## 5.16
+
+> The while loop is particularly good at executing while some condition holds; for example, when we need to read values until end-of-file. The for loop is generally thought of as a step loop: An index steps through a range of values in a collection. Write an idiomatic use of each loop and then rewrite each using the other loop construct. If you could use only one loop, which would you choose? Why?
+
+```c++
+// while idiomatic
+int ix = 0;
+while (ix != sz) {
+  ++ix;
+}
+// the same as
+for( int ix = 0; ix != sz; ++ix) {
+  // ...
+}
+// for idiomatic
+for(auto it = vec.begin(); it != vec.end(); ++it){
+  // ...
+}
+// the same as
+auto it = vec.begin();
+while(it != vec.end()){
+  ++it;
+  // ... 
+}
+```
+
+I have no prefer.
+
+## 5.17
+
+> Given two vectors of ints, write a program to determine whether one vector is a prefix of the other. For vectors of unequal length, compare the num- ber of elements of the smaller vector. For example, given the vectors containing 0, 1, 1, and 2 and 0, 1, 1, 2, 3, 5, 8, respectively your program should return true.
+
+[code](./exercise5_17.cpp)
