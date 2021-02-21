@@ -265,3 +265,39 @@ I have no prefer.
 > Given two vectors of ints, write a program to determine whether one vector is a prefix of the other. For vectors of unequal length, compare the num- ber of elements of the smaller vector. For example, given the vectors containing 0, 1, 1, and 2 and 0, 1, 1, 2, 3, 5, 8, respectively your program should return true.
 
 [code](./exercise5_17.cpp)
+
+## 5.18
+
+> Explain each of the following loops. Correct any problems you detect.
+
+```c++
+do {
+  int v1, v2;
+  cout << "Please enter two numbers to sum: ";
+  if(cin >> v1 >> v2) cout<< "Sum is: " << v1 + v2 << endl;
+} while(cin);
+```
+
+------
+
+```c++
+int ival;
+do {
+  // ....
+} while(ival = get_response())
+```
+
+------
+
+```c++
+int ival;
+do {
+  ival = get_response();
+} while (ival);
+```
+
+## 5.19
+
+> Write a program that uses a do while loop to repetitively request two strings from the user and report which string is less than the other.
+
+[code](./exercise5_19.cpp)
