@@ -167,3 +167,117 @@ What would happen if we made s a plain reference? What if we made occurs a refer
 
 如果我们把`occurs`设置为a reference to const，`occurs = 0;` would be an error;
 
+## 6.16
+
+> The following function, although legal, is less useful than it might be. Identify and correct the limitation on this function:
+
+```c++
+bool is_empty(const string &s) {
+  return s.empty();
+}
+```
+
+## 6.17
+
+> Write a function to determine whether a string contains any capital letters. Write a function to change a string to all lowercase. Do the parameters you used in these functions have the same type? If so, why? If not, why not?
+
+[code](./exercise6_17.cpp)
+
+Not the same;
+
+## 6.18
+
+> Write declarations for each of the following functions. When you write these declarations, use the name of the function to indicate what the function does.
+
+(a) A function named compare that returns a bool and has two parameters that are references to a class named matrix.
+
+```c++
+bool compare(const matrix &m1, const matrix &m2);
+```
+
+(b) A function named change_val that returns a` vector<int>` iterator and takes two parameters: One is an int and the other is an iterator for a` vector<int>`.
+
+```c++
+vector<int>::iterator change_val(int x, vector<int>::iterator it);
+```
+
+## 6.19
+
+> Given the following declarations, determine which calls are legal and which are illegal. For those that are illegal, explain why.
+
+```c++
+double calc(double);
+int count(const string &, char);
+int sum(vector<int>::iterator, vector<int>::iterator, int);
+vector<int> vec(10);
+
+// a
+calc(23.4, 55.1); // illegal; too many arguments
+// b
+count("abcda", 'a'); // legal
+// c
+calc(66); // legal
+// d
+sum(vec.begin(), vec.end(), 3.8); // legal
+```
+
+## 6.20
+
+> When should reference parameters be references to const? What hap- pens if we make a parameter a plain reference when it could be a reference to const?
+
+------
+
+> It is a somewhat common mistake to define parameters that a function does not change as (plain) references. Doing so gives the function’s caller the misleading impression that the function might change its argument’s value. Moreover, using a reference instead of a reference to const unduly limits the type of arguments that can be used with the function. As we’ve just seen, we cannot pass a const object, or a literal, or an object that requires conversion to a plain reference parameter.
+
+## 6.21
+
+> Write a function that takes an int and a pointer to an int and returns the larger of the int value or the value to which the pointer points. What type should you use for the pointer?
+
+[code](./exercise6_21.cpp)
+
+The type for the pointer is `const int*`
+
+## 6.22
+
+> Write a function to swap two int pointers.
+
+[code](./exercise6_22.cpp)
+
+## 6.23
+
+> Write your own versions of each of the print functions presented in this section. Call each of these functions to print i and j defined as follows:
+>
+> ```c++
+> int i = 0, j[2] = {0, 1};
+> ```
+>
+> 
+
+[code](./exercise6_23.cpp)
+
+## 6.24
+
+> Explain the behavior of the following function. If there are problems in the code, explain what they are and how you might fix them.
+>
+> ```c++
+> void print(const int ia[10]) {
+>   for (size_t i = 0; i != 10; ++i)
+>     cout << ia[i] << endl;
+> }
+> ```
+>
+> 
+
+**Because we cannot copy an array, we cannot pass an array by value. Because arrays are converted to pointers, when we pass an array to a function, we are actually passing a pointer to the array’s first element.**
+
+`const int ia[10]` is equivalent to `const int*`, and the size of the array is **irrelevant**. we can pass `const int ia[3]` or `const int ia[255]`, there are no differences.  If we want to pass an array with **dimension**, we should use reference like that:
+
+```c++
+void print(const int (&ia)[10]) {
+  for (auto item : ia)
+    cout << item << endl;
+}
+```
+
+[see more](https://stackoverflow.com/questions/26530659/confused-about-array-parameters)
+

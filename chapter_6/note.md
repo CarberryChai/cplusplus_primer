@@ -77,3 +77,56 @@ void reset(int &i) {
 ```
 
 It can be inefficient to copy objects of large class types or large containers. More- over, some class types (including the IO types) cannot be copied. Functions must use reference parameters to operate on objects of a type that cannot be copied.
+
+## const Parameters and Arguments
+
+a top-level const is one that applies to the object itself:
+
+```c++
+const int ci = 42; // we cannot change ci; const is top-level
+int i = ci; // ok: when we copy ci, its top-level const is ignored
+int * const p = &i; // const is top-level; we can't assign to p
+*p = 0; // ok: changes through p are allowed; i is now 0
+```
+
+Just as in any other initialization, when we copy an argument to initialize a param- eter, top-level consts are ignored.
+
+**The fact that top- level consts are ignored on a parameter has one possibly surprising implication:**
+
+```c++
+void fcn(const int i) { // fcn can read but not write to i
+  // ...
+}
+void fcn(int i) { // error: redefines fcn(int)
+  // ...
+}
+```
+
+In C++, we can define several different functions that have the same name. How- ever, we can do so only if their parameter lists are sufficiently different**. Because top-level consts are ignored, we can pass exactly the same types to either version of fcn.** **The second version of fcn is an error.** Despite appearances, its parameter list doesn’t differ from the list in the first version of fcn.
+
+### Pointer or Reference Parameters and const
+
+Because parameters are initialized in the same way that variables are initialized, it can be helpful to remember the general initialization rules. **We can initialize an object with a low-level const from a nonconst object but not vice versa, and a plain reference must be initialized from an object of the same type.**
+
+```c++
+int i = 42;
+const int *cp = &i; // ok: but cp can't change i
+const int &r = i; // ok: but r can't change i
+const int &r2 = 42; // ok
+int *p = cp; // error: types of p and cp don't match
+int &r3 = r; // error: types of r3 and r don't match
+int &r4 = 42; // error: can't initialize a plain reference from a literal
+```
+
+## Array Parameters
+
+Arrays have two special properties that affect how we define and use functions that operate on arrays: **We cannot copy an array (§ 3.5.1, p. 114), and when we use an array it is (usually) converted to a pointer (§ 3.5.3, p. 117).** **Because we cannot copy an array, we cannot pass an array by value. Because arrays are converted to pointers, when we pass an array to a function, we are actually passing a pointer to the array’s first element.**
+
+```c++
+// despite appearances, these three declarations of print are equivalent
+// each function has a single parameter of type const int*
+void print(const int*);
+void print(const int[]); // show the intent that the function takes an array
+void print(const int[10]); // diension for documentation purposes(at best)
+```
+
