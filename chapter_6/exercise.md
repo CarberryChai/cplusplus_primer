@@ -82,3 +82,8 @@ int abs(int x) {
 > Write a function that returns 0 when it is first called and then generates numbers in sequence each time it is called again.
 
 [code](./exercise6_7.cpp)
+
+## 6.8
+
+> Write a header file named Chapter6.h that contains declarations for the functions you wrote for the exercises in § 6.1 (p. 205).
+
