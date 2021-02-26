@@ -130,3 +130,143 @@ void print(const int[]); // show the intent that the function takes an array
 void print(const int[10]); // diension for documentation purposes(at best)
 ```
 
+## main:Handling Command-Line Options
+
+For example, assuming our main program is in an executable file named `prog`, we might pass options to the program as follows:
+
+```shell
+prog -d -o ofile data0
+```
+
+Such command-line options are passed to main in two (optional) parameters:
+
+```c++
+int main(int argc, char *argv[]) {}
+```
+
+**The second parameter, argv, is an array of pointers to C-style character strings.** The first parameter, argc, passes the number of strings in that array.
+
+Because the second parameter is an array, we might alternatively define main as
+
+```c++
+int main(int argc, char **argv) {}
+```
+
+en the previous command line, `argc` would be 5, and argv would hold the following C-style character strings:
+
+```c++
+argv[0] = "prog";
+argv[1] = "-d";
+argv[2] = "-o";
+argv[3] = "ofile";
+argv[4] = "data0";
+```
+
+## Functions with Varying Parameters
+
+Sometimes we do not know in advance how many arguments we need to pass to a function.
+
+The new standard provides two primary ways to write a function that takes a varying number of arguments:
+
+**If all the arguments have the same type, we can pass a library type named `initializer_list`.**
+
+ If the argument types vary, we can write a special kind of function, known as a variadic template, which we’ll cover in § 16.4 (p. 699).
+
+An `initializer_list` is a library type that represents an array (§ 3.5, p. 113) of values of the specified type. 
+
+<img src="https://cdn.jsdelivr.net/gh/CarberryChai/oss@master/image/c9MgTV-si5L6u.png" style="zoom:50%;" />
+
+**Unlike vector, the elements in an initializer_list are always const val- ues; there is no way to change the value of an element in an initializer_list.**
+
+We can write our function to produce error messages from a varying number of arguments as follows:
+
+```c++
+void error_msg(initializer_list<string> il) {
+  for (auto beg = il.begin(); beg != il.end(); ++beg)
+    cout << *beg << " ";
+  cout << endl;
+}
+```
+
+When we pass a sequence of values to an initializer_list parameter, we must enclose the sequence in curly braces:
+
+```c++
+// expected, actual are strings
+if (expected != actural)
+  error_msg({"functionX", expected, actual});
+else
+  error_msg({"functionX", "okay"});
+```
+
+## Never Return a Reference or Pointer to a Local Object
+
+**When a function completes, its storage is freed (§ 6.1.1, p. 204). After a function terminates, references to local objects refer to memory that is no longer valid:**
+
+```c++
+const string &manip() {
+  string ret;
+  // transform ret in some way
+  if (!ret.empty())
+    return ret; // WRONG: returning a reference to a local object!
+  return "Empty"; // WRONG: "Empty" is a local temporary string
+}
+```
+
+**The storage in which the temporary resides is freed when the function ends. Both returns refer to memory that is no longer available.**
+
+**For the same reasons that it is wrong to return a reference to a local object, it is also wrong to return a pointer to a local object. Once the function completes, the local objects are freed. The pointer would point to a nonexistent object.**
+
+## Functions That Return Class Types and the Call Operator
+
+Like any operator the call operator has associativity and precedence (§ 4.1.2, p. 136). **The call operator has the same precedence as the dot and arrow operators (§ 4.6, p. 150).** **Like those operators, the call operator is left associative. As a result, if a function returns a pointer, reference or object of class type, we can use the result of a call to call a member of the resulting object.**
+
+```c++
+// call the size member of the string returned by shorterString
+auto sz = shorterString(s1, s2).size();
+```
+
+## List Initializing the Return Value
+
+Under the new standard, functions can return a braced list of values.
+
+As an example, recall the error_msg function from § 6.2.6 (p. 220). That func- tion took a varying number of string arguments and printed an error message composed from the given strings. Rather than calling error_msg, in this func- tion we’ll return a vector that holds the error-message strings:
+
+```c++
+vector<string> process() {
+  if (expected.empty())
+    return {};
+  else if (expected == actual)
+    return {"functionX", "okay"};
+  else return {"functionX", expected. actual};
+}
+```
+
+In a function that returns a built-in type, a braced list may contain at most one value, and that value must not require a narrowing conversion (§ 2.2.1, p. 43). **If the function returns a class type, then the class itself defines how the intiailizers are used (§ 3.3.1, p. 99).**
+
+## Declaring a Function That Returns a Pointer to an Array
+
+**Because we cannot copy an array, a function cannot return an array.** However, a function can return a pointer or a reference to an array (§ 3.5.1, p. 114).
+
+```c++
+int arr[10]; // arr is an array of ten ints
+int *p1[10]; // p1 is an array of ten pointers
+int (*p2)[10] = f&arr; // p2 points to an array of ten ints
+```
+
+**As with these declarations, if we want to define a function that returns a pointer to an array, the dimension must follow the function’s name.**  However, a function includes a parameter list, which also follows the name. The parameter list precedes the dimension. Hence, the form of a function that returns a pointer to an array is:
+
+`Type (*function(parameter_list))[dimension]`
+
+As a concrete example, the following declares func without using a type alias:
+
+```c++
+int (*func(int i))[10];
+```
+
+Under the new standard, another way to simplify the declaration of `func` is by us- ing a **trailing return type.** **Trailing returns can be defined for any function, but are most useful for functions with complicated return types, such as pointers (or references) to arrays.** A trailing return type follows the parameter list and is preceded by `->`. To signal that the return follows the parameter list, we use `auto` where the return type ordinarily appears:
+
+```c++
+// func takes an int argument and returns a pointer to an array of ten ints
+auto func(int i) -> int(*)[10];
+```
+

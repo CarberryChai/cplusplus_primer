@@ -281,3 +281,121 @@ void print(const int (&ia)[10]) {
 
 [see more](https://stackoverflow.com/questions/26530659/confused-about-array-parameters)
 
+## 6.25
+
+> Write a main function that takes two arguments. Concatenate the sup- plied arguments and print the resulting string.
+
+[code](./exercise6_25.cpp)
+
+# 6.26
+
+is the same as 6.25
+
+## 6.27
+
+> Write a function that takes an initializer_list<int> and pro- duces the sum of the elements in the list.
+
+[code](./exercise6_27.cpp)
+
+## 6.28
+
+>  In the second version of error_msg that has an ErrCode parameter, what is the type of elem in the for loop?
+
+`const string&`
+
+## 6.29
+
+> When you use an initializer_list in a range for would you ever use a reference as the loop control variable? If so, why? If not, why not?
+
+Depend on whether the copied type is **cheep** or not, like `string` or any other large class type, it's better use reference, otherwise, not use
+
+## 6.30
+
+> Compile the version of str_subrange as presented on page 223 to see what your compiler does with the indicated errors.
+
+- error: non-void function 'str_subrange' should return a value [-Wreturn-type]
+- error: non-void function does not return a value in all control paths [-Werror,-Wreturn-type]
+
+## 6.31
+
+> When is it valid to return a reference? A reference to const?
+
+" One good way to ensure that the return is safe is to ask: To what preexisting object is the reference referring?"
+
+## 6.32
+
+> Indicate whether the following function is legal. If so, explain what it does; if not, correct any errors and then explain it.
+>
+> ```c++
+> int &get(int *arry, int index) {
+>   return arry[index];
+> }
+> int main() {
+>   int ia[10];
+>   for (int i = 0; i != 10; ++i)
+>     get(ia, i) = i;
+> }
+> ```
+>
+> 
+
+
+
+Legal; give the array ia value from 0 to 9 inclusive
+
+## 6.33
+
+> Write a recursive function to print the contents of a vector.
+
+[code](./exercise6_33.cpp)
+
+## 6.34
+
+> What would happen if the stopping condition in factorial were
+
+```c++
+if (val != 0)
+```
+
+If `val` is postive, it's ok; otherwise, if val is negative, the stopping condition will not occur.
+
+## 6.35
+
+>  In the call to factorial, why did we pass `val - 1` rather than `val--`?
+
+the function will recurse “forever”.
+
+## 6.36
+
+> Write the declaration for a function that returns a reference to an array of ten strings, without using either a trailing return, decltype, or a type alias.
+
+```c++
+string (&func())[10];
+```
+
+## 6.37
+
+> Write three additional declarations for the function in the previous ex- ercise. One should use a type alias, one should use a trailing return, and the third should use decltype. Which form do you prefer and why?
+
+```c++
+using stringT = string[10];
+stringT &func();
+auto func() -> string(&)[10];
+string s[10];
+decltype(s) &func();
+```
+
+I prefer the rrailing return.
+
+## 6.38
+
+> Revise the arrPtr function on to return a reference to the array.
+
+```c++
+int odd[] = {1, 3, 5, 7, 9};
+int even[] = {0, 2, 4, 6, 8};
+auto arrPtr(int i) -> int(&)[5] {
+  return (i % 2) ? odd : even;
+}
+```
+
