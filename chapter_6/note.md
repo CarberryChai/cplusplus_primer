@@ -270,3 +270,69 @@ Under the new standard, another way to simplify the declaration of `func` is by 
 auto func(int i) -> int(*)[10];
 ```
 
+## Inline and constexpr Functions
+
+one potential drawback to making shorterString a func- tion: Calling a function is apt to be slower than evaluating the equivalent expres- sion. On most machines, a function call does a lot of work: Registers are saved before the call and restored after the return; arguments may be copied; and the program branches to a new location.
+
+A function specified as inline (usually) is expanded “in line” at each call. If shorterString were defined as inline, then this call
+
+```c++
+cout << shorterString(s1, s2) << endl;
+```
+
+(probably) would be expanded during compilation into something like
+
+```c++
+cout << (s1.size() < s2.size() ? s1 : s2) << endl;
+```
+
+ **The inline specification is only a request to the compiler. The compiler may choose to ignore this request.**
+
+## Pointers to Functions
+
+A function pointer is just that—**a pointer that denotes a function rather than an object.** Like any other pointer, **a function pointer points to a particular type.** **A function’s type is determined by its return type and the types of its parameters.** The function’s name is not part of its type. For example:
+
+```c++
+bool lengthCompare(const string &, const string &);
+```
+
+has type `bool(const string&, const string&)`.  To declare a pointer that can point at this function, we declare a pointer in place of the function name:
+
+```c++
+// pf points to a function returning bool that takes two const string references
+bool (*pf) (const string &, const string &);
+```
+
+**When we use the name of a function as a value, the function is automatically converted to a pointer.** For example, we can assign the address of lengthCompare to pf as follows:
+
+```c++
+pf = lengthCompare; // pf now points to the function named lengthCompare
+pf = &lengthCompare; // equivalent assignment; address of oerator is optional
+```
+
+Moreover, **we can use a pointer to a function to call the function to which the pointer points.** We can do so directly—there is no need to dereference the pointer:
+
+```c++
+bool b1 = pf("hello", "goodbye"); // calls lengthCompare
+bool b2 = (*pf)("hello", "goodbye"); // equivalent call
+bool s3 = lengthCompare("hello", "goodbye"); // equivalent call
+```
+
+## Function Pointer Parameters
+
+**Just as with arrays (§ 6.2.4, p. 214), we cannot define parameters of function type but can have a parameter that is a pointer to function.** As with arrays, we can write a parameter that looks like a function type, but it will be treated as a pointer:
+
+```c++
+// third parameter is a function type and is automatically treated as a pointer to function
+void useBigger(const string &s1, const string &s2, bool pf(const string&, const string&));
+// equivalent declaration: explicitly define the parameter as a pointer to function
+void useBigger(const string &s1, const string &s2, bool (*pf)(const string&, const string&));
+```
+
+**When we pass a function as an argument, we can do so directly. It will be auto- matically converted to a pointer:**
+
+```c++
+// automatically coverts the function lengthCompare to a pointer to function
+useBigger(s1, s2, lengthCompare);
+```
+

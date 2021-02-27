@@ -9,6 +9,9 @@ using std::vector;
 
 void print_vector(vector<string>::iterator begin,
                   vector<string>::iterator end) {
+#ifndef NDEBUG
+  std::cout << "The range of vector is " << end - begin << std::endl;
+#endif
   if (begin == end) return;
   std::cout << *begin << std::endl;
   print_vector(begin + 1, end);
