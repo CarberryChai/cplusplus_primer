@@ -4,7 +4,7 @@
 #include "../include/Person.h"
 
 #include <iostream>
-
+Person::Person(std::istream& is) { is >> name >> address; }
 std::istream& read(std::istream& input, Person& p) {
   input >> p.name >> p.address;
   return input;

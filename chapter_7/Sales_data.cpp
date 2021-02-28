@@ -11,7 +11,10 @@ Sales_data& Sales_data::combine(const Sales_data& rhs) {
   return *this;
 }
 
-double Sales_data::avg_price() const { return revenue / units_sold; }
+double Sales_data::avg_price() const {
+  if (!units_sold) throw std::runtime_error("division units_sold by zero");
+  return revenue / units_sold;
+}
 
 Sales_data add(const Sales_data& lhs, const Sales_data& rhs) {
   Sales_data sum = lhs;
@@ -24,7 +27,7 @@ std::istream& read(std::istream& input, Sales_data& item) {
   item.revenue = price * item.units_sold;
   return input;
 }
-std::ostream& print(std::ostream& output, Sales_data& item) {
+std::ostream& print(std::ostream& output, const Sales_data& item) {
   output << item.bookNo << " " << item.units_sold << " " << item.revenue << " "
          << item.avg_price();
   return output;

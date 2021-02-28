@@ -65,3 +65,55 @@ By default, **the type of this is a const pointer to the nonconst version of the
 
 ##  Constructors
 
+Classes control object initialization by defining one or more special member functions known as **constructors**. **The job of a constructor is to initialize the data members of a class object. A constructor is run whenever an object of a class type is created.**
+
+Constructors have the same name as the class.  have a (possibly empty) parameter list and a (possibly empty) function body. A class can have multiple constructors. Like any other overloaded function (§ 6.4, p. 230), the con- structors must differ from each other in the number or types of their parameters.
+
+## The Synthesized Default Constructor
+
+```c++
+Sales_data total;
+Sales_data trans;
+```
+
+The question naturally arises: How are `total` and `trans` initialized?
+
+We did not supply an initializer for these objects, so we know that they are **default initialized** (§ 2.2.1, p. 43). Classes control default initialization by defining a special constructor, known as the **default constructor**. **The default constructor is**
+**one that takes no arguments.**
+
+As we’ll, see the default constructor is special in various ways, **one of which is that if our class does not explicitly define any constructors, the compiler will implicitly define the default constructor for us**
+
+For most classes, this synthesized constructor initializes each data mem- ber of the class as follows:
+
+- If there is an in-class initializer (§ 2.6.1, p. 73), use it to initialize the member.
+- Otherwise, default-initialize (§ 2.2.1, p. 43) the member.
+
+Because Sales_data provides initializers for units_sold and revenue, the synthesized default constructor uses those values to initialize those members. It default initializes bookNo to the empty string.
+
+**The most common reason that a class must define its own default constructor is that the compiler generates the default for us only if we do not define any other constructors for the class.**
+
+ **The compiler generates a default constructor automatically only if a class declares no constructors.**
+
+A second reason to define the default constructor is that for some classes, the synthesized default constructor does the wrong thing. **Remember that objects of built-in or compound type (such as arrays and pointers) that are defined inside a block have undefined value when they are default initialized (§ 2.2.1, p. 43). The same rule applies to members of built-in type that are default initialized.** **Therefore, classes that have members of built-in or compound type should ordinarily either initialize those members inside the class or define their own version of the default constructor. Otherwise, users could create objects with members that have undefined value.**
+
+## What = default Means
+
+We’ll start by explaining the default constructor:
+
+```c++
+Sales_data() = default;
+```
+
+First, note that this constructor defines the default constructor because it takes no arguments. 
+
+Under the new standard, if we want the default behavior, we can ask the com- piler to generate the constructor for us by writing `= default` after the parameter list.
+
+## Constructor Initializer List
+
+```c++
+Sales_data(const std::string& s): bookNo(s) {}
+Sales_data(const std::string& s, unsigned n, double p):bookNo(s), units_sold(n), revenue(p*n) {}
+```
+
+The new parts in these definitions are the colon and the code between it and the curly braces that define the (empty) function bodies. This new part is a **constructor initializer list**, which specifies initial values for one or more data members of the object being created. The constructor initializer is a list of member names, each of which is followed by that member’s initial value in **parentheses (or inside curly braces).** Multiple member initializations are separated by commas.
+

@@ -62,3 +62,34 @@ cin >> data1 >> data2;
 if(cin)
 ```
 
+## 7.11
+
+> Add constructors to your Sales_data class and write a program to use each of the constructors.
+
+ [Sales_data](Sales_data.cpp)  [code7.11](./exercise7_11.cpp)
+
+## 7.12
+
+> Move the definition of the Sales_data constructor that takes an istream into the body of the Sales_data class.
+
+[Sales_data.h](../include/Sales_data.h)
+
+## 7.13
+
+> Rewrite the program from page 255 to use the istream constructor
+
+[code7.13](./exercise7_13.cpp)
+
+## 7.14
+
+> Write a version of the default constructor that explicitly initializes the members to the values we have provided as in-class initializers.
+
+```c++
+Sales_data():bookNo(), units_sold(0), revenue(0.0) {}
+```
+
+## 7.15
+
+> Add appropriate constructors to your Person class.
+
+[Person.h](../include/Person.h)
