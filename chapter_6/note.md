@@ -272,7 +272,7 @@ auto func(int i) -> int(*)[10];
 
 ## Inline and constexpr Functions
 
-one potential drawback to making shorterString a func- tion: Calling a function is apt to be slower than evaluating the equivalent expres- sion. On most machines, a function call does a lot of work: Registers are saved before the call and restored after the return; arguments may be copied; and the program branches to a new location.
+one potential drawback to making shorterString a function: Calling a function is apt to be slower than evaluating the equivalent expression. On most machines, a function call does a lot of work: Registers are saved before the call and restored after the return; arguments may be copied; and the program branches to a new location.
 
 A function specified as inline (usually) is expanded “in line” at each call. If shorterString were defined as inline, then this call
 

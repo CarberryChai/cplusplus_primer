@@ -40,7 +40,7 @@ total.isbn();
 
 When `isbn` refers to members of `Sales_data` (e.g., `bookNo`), it is referring implicitly to the members of the object on which the function was called. In this call, when `isbn` returns `bookNo`, it is implicitly returning `total.bookNo`.
 
-**Member functions access the object on which they were called through an ex- tra, implicit parameter named `this`.**
+**Member functions access the object on which they were called through an extra, implicit parameter named `this`.**
 
 **When we call a member function, `this` is initialized with the address of the object on which the function was invoked.** For example, when we call `total.isbn()`.
 
@@ -116,4 +116,33 @@ Sales_data(const std::string& s, unsigned n, double p):bookNo(s), units_sold(n),
 ```
 
 The new parts in these definitions are the colon and the code between it and the curly braces that define the (empty) function bodies. This new part is a **constructor initializer list**, which specifies initial values for one or more data members of the object being created. The constructor initializer is a list of member names, each of which is followed by that member’s initial value in **parentheses (or inside curly braces).** Multiple member initializations are separated by commas.
+
+## Using the class or struct Keyword
+
+A class may define members before the first access specifier. Access to such members depends on how the class is defined. **If we use the struct keyword, the members defined before the first access specifier are `public`; if we use class, then the members are `private`.**
+
+As a matter of programming style, when we define a class intending for all of its members to be public, we use struct. If we intend to have private members, then we use class.
+
+ **The only difference between using class and using struct to define a class is the default access level.**
+
+## Friends
+
+Now that the data members of `Sales_data` are `private`, our `read`, `print`, and `add` functions will **no longer compile**. The problem is that although these functions are part of the Sales_data interface, they are not members of the class.
+
+**A class can allow another class or function to access its nonpublic members by making that class or function a friend.**
+
+**A friend declaration only specifies access. It is not a general declaration of the function.**
+
+## Returning *this from a const Member Function
+
+Next, we’ll add an operation, which we’ll name display, to print the contents of the Screen.
+
+Logically, displaying a Screen doesn’t change the object, so we should make display a const member. If display is a const member, then `this` is a pointer to const and `*this` is a const object. Hence, the return type of display must be` const Sales_data&.` However, if display returns a reference to const, we won’t be able to embed display into a series of actions:
+
+```c++
+Screen myScreen;
+myScreen.display(cout).set('*'); // if display returns a const reference, the call to set is an error
+```
+
+**The problem is that the const version of display returns a reference to const and we cannot call set on a const object.**
 

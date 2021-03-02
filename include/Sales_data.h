@@ -5,9 +5,9 @@
 #ifndef CPLUSPLUS_PRIMER_CHAPTER_2_SALES_DATA_H_
 #define CPLUSPLUS_PRIMER_CHAPTER_2_SALES_DATA_H_
 #include <iostream>
-struct Sales_data;
-std::istream& read(std::istream& input, Sales_data& item);
+
 struct Sales_data {
+  friend std::istream& read(std::istream& input, Sales_data& item);
   std::string bookNo;
   unsigned units_sold = 0;
   double revenue = 0.0;

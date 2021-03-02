@@ -11,9 +11,9 @@ Sales_data& Sales_data::combine(const Sales_data& rhs) {
   return *this;
 }
 
-double Sales_data::avg_price() const {
-  if (!units_sold) throw std::runtime_error("division units_sold by zero");
-  return revenue / units_sold;
+// exercise 7.26
+inline double Sales_data::avg_price() const {
+  return units_sold ? revenue / units_sold : 0;
 }
 
 Sales_data add(const Sales_data& lhs, const Sales_data& rhs) {

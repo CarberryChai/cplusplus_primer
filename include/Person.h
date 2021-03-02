@@ -5,8 +5,14 @@
 #ifndef CPLUSPLUS_PRIMER_INCLUDE_PERSON_H_
 #define CPLUSPLUS_PRIMER_INCLUDE_PERSON_H_
 #include <iostream>
-struct Person {
+class Person {
+  friend std::istream& read(std::istream& input, Person& p);
+  friend std::ostream& write(std::ostream& output, Person& p);
+
+ private:
   std::string name, address;
+
+ public:
   const std::string& get_name() const { return name; }
   const std::string& get_address() const { return address; }
 
