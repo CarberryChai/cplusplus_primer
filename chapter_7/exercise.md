@@ -256,3 +256,318 @@ class Y {
 
 [code7.32](./exercise7_32.h)
 
+## 7.33
+
+> What would happen if we gave Screen a size member defined as follows? Fix any problems you identify.
+
+```c++
+pos Screen::size() const {
+  return height * width;
+}
+```
+
+Error: unknow type name 'pos'
+
+Fixed:
+
+```c++
+Screen::pos Screen::size() const {
+  return height * width;
+}
+```
+
+## 7.34
+
+> What would happen if we put the typedef of pos in the Screen class on page 285 as the last line in the class?
+
+Error: unknow type name 'pos'
+
+## 7.35
+
+> Explain the following code, indicating which definition of Type or initVal is used for each use of those names. Say how you would fix any errors.
+
+```c++
+typedef string Type;
+Type initVal; // string
+class Exercise {
+  public:
+  	typedef double Type;
+  	Type setVal(Type); // double double
+  	Type initVal(); // double
+  private:
+  	int val;
+};
+Type Exercise::setVal(Type parm) { // string double
+  val = parm + initVal(); // Exercise::initVal()
+  return val;
+}
+```
+
+Fixed:
+
+```c++
+Exercise::Type Exercise::setVal(Type parm) {
+  val = parm + initVal();
+  return val;
+}
+```
+
+The member function `Exercise::initVal` must be defined 
+
+## 7.36
+
+> The following initializer is in error. Identify and fix the problem.
+
+```c++
+struct X {
+  X (int i, int j): rem(i % j), base(i) {}
+  int rem, base;
+}
+```
+
+## 7.37
+
+> Using the version of Sales_data from this section, determine which constructor is used to initialize each of the following variables and list the values of the data members in each object:
+
+```c++
+Sales_data first_item(cin); // Sales_data(std::istream& is) its value depend on your input
+
+int main() {
+  Sales_data next; // Sales_data(std::string s = ""):bookNo(s) {}  bookNo "", units_sold 0, revenue 0
+  Sales_data last("9-999-99999-9");
+  // Sales_data(std::string s = ""):bookNo(s) {}  bookNo "9-999-99999-9", units_sold 0, revenue 0
+}
+```
+
+## 7.38
+
+> We might want to supply cin as a default argument to the constructor that takes an istream&. Write the constructor declaration that uses cin as a default argument.
+
+```c++
+Sales_data(std::istream& is = std::cin) {
+  read(is, *this);
+}
+```
+
+## 7.39
+
+> Would it be legal for both the constructor that takes a string and the one that takes an istream& to have default arguments? If not, why not?
+
+Illegal; the call of overloaded `Sales_data()` is **ambiguous**
+
+## 7.40
+
+> Choose one of the following abstractions (or an abstraction of your own choosing). Determine what data are needed in the class. Provide an appropriate set of constructors. Explain your decisions.
+>
+> (a) Book (b) Date (c) Employee (d) Vehicle (e) Object (f) Tree
+
+I choose Employee
+
+```c++
+class Employee {
+  public:
+  	Employee() = default;
+  	Employee(const string& i, const string& n, const string& d, double s):id(i), name(n), department(d), salary(s) {}
+  	Employee(std::istream& is){
+      is >> id >> name >> department >> salary;
+    }
+  private:
+  	string id, name, department;
+  	double salary;
+}
+```
+
+## 7.41
+
+> Rewrite your own version of the Sales_data class to use delegating constructors. Add a statement to the body of each of the constructors that prints a message whenever it is executed. Write declarations to construct a Sales_data object in every way possible. Study the output until you are certain you understand the order of execution among delegating constructors.
+
+[code7.41](./exercise7.41.cpp)
+
+## 7.42
+
+> For the class you wrote for exercise 7.40 in § 7.5.1 (p. 291), decide whether any of the constructors might use delegation. If so, write the delegating con- structor(s) for your class. If not, look at the list of abstractions and choose one that you think would use a delegating constructor. Write the class definition for that abstraction.
+
+```c++
+class Employee {
+  public:
+  	Employee(const string& i, const string& n, const string& d, double s):id(i), name(n), department(d), salary(s) {}
+  	Employee():Employee("", "", "", 0) {}
+  	Employee(std::istream& is):Employee() {
+      is >> id >> name >> department >> salary;
+    }
+  private:
+  	string id, name, department;
+  	double salary;
+}
+```
+
+## 7.43
+
+> Assume we have a class named NoDefault that has a constructor that takes an int, but has no default constructor. Define a class C that has a member of type NoDefault. Define the default constructor for C.
+
+```c++
+struct NoDefault {
+  NoDefault(int i) {}
+};
+
+class C {
+  public:
+  	C() = default;
+  private:
+  	NoDefault _m;
+}
+```
+
+## 7.44
+
+> Is the following declaration legal? If not, why not?
+
+```c++
+vector<NoDefault> vec(10);
+```
+
+Illegal; `vector<NoDefault>` will initialize ten elements of value initialization, but class NoDefault has no default initialization.
+
+## 7.45
+
+> What if we defined the vector in the previous execercise to hold ob- jects of type C?
+
+Illegal; C has a data member which is NoDefault type, so initializing C will get error
+
+## 7.46
+
+> Which, if any, of the following statements are untrue? Why?
+
+- (a) A class must provide at least one constructor. (**Untrue**; "the compiler-generated constructor is known as the synthesized  default constructor.")
+- (b) A default constructor is a constructor with an empty parameter list. (**Untrue**, A default constructor is a constructor that is used if no initializer is supplied. What's more, A constructor that supplies default arguments for all its parameters also defines constructor)
+- (c) if there are no meaningful default values for a class, the class should not provide a default constructor. (**Untrue**, the class should provide)
+- (d) if a class does not define a default constructor, the compiler generates one that initializes each data member to the default value of its associated type. (**Untrue**, only if our class does not explicitly define any constructors, the compiler will implicitly define the default constructor for us)
+
+## 7.47
+
+> Explain whether the Sales_data constructor that takes a string should be explicit. What are the benefits of making the constructor explicit? What are the drawbacks?
+
+Whether the conversion of a string to Sales_data is desired depends on how we think our users will use the conversion. In this case, it might be okay. The string in null_book probably represents a nonexistent ISBN.
+
+Benefits:
+
+- Prevent the use of a constructor in a context that requires an implicit conversion
+- We can define a constructor which is used only with the direct form of initialization.
+
+Drawbacks:
+
+- Meaningful only on constructors that can be called with a single argument
+
+## 7.48
+
+> Assuming the Sales_data constructors are not explicit, what op- erations happen during the following definitions
+>
+> ```c++
+> string null_isbn("9-999-99999-9");
+> Sales_data item1(null_isbn);
+> Sales_data item2("9-999-99999-9")
+> ```
+>
+> What happens if the Sales_data constructors are explicit?
+
+Nothing happens.
+
+## 7.49
+
+> For each of the three following declarations of combine, explain what happens if we call i.combine(s), where i is a Sales_data and s is a string:
+>
+> ```c++
+> // a
+> Sales_data& combine(Sales_data);
+> // b
+> Sales_data& combine(Sales_data&); // error: the parameter is a non-const reference, we can't pass a tempory to that parameter.
+> // c
+> Sales_data& combine(const Sales_data&) const; // the trailing const is not wright here, putting here incidate that can not change member of Sales_data
+> ```
+>
+> 
+
+## 7.50
+
+> Determine whether any of your Person class constructors should be explicit.
+
+```c++
+#include <iostream>
+class Person {
+  friend std::istream& read(std::istream& input, Person& p);
+  friend std::ostream& write(std::ostream& output, Person& p);
+
+ private:
+  std::string name, address;
+
+ public:
+  const std::string& get_name() const { return name; }
+  const std::string& get_address() const { return address; }
+
+  Person() = default;
+  Person(const std::string& name, const std::string& address)
+      : name(name), address(address) {}
+  explicit Person(const std::string& name) : name(name) {}
+  explicit Person(std::istream& is);
+};
+std::istream& read(std::istream& input, Person& p);
+std::ostream& write(std::ostream& output, Person& p);
+```
+
+## 7.51
+
+> Why do you think vector defines its single-argument constructor as explicit, but string does not?
+
+Because string can use both the copy form of initialization and diect initialization.
+
+```c++
+int getSize(const vector<int>&);
+```
+
+If vector has not defined its single-argument constructor as explicitl. We can use this function like this:
+
+```c++
+getSize(20);
+```
+
+what's that mean ? it's so weird;
+
+## 7.52
+
+> Using our first version of Sales_data from § 2.6.1 (p. 72), explain the following initialization. Identify and fix any problems.
+
+In my opinion, the main problems is the aims of **Aggregate Classes**. A aggregate class should not have in-class initializers.
+
+So:
+
+```c++
+struct Sales_data {
+  std::string bookNo;
+  unsigned units_sold;
+  double revenue;
+}
+```
+
+## 7.53
+
+> Define your own version of Debug.
+
+[code7.53](./exercise7_53.cpp)
+
+## 7.54
+
+> Should the members of Debug that begin with set_ be declared as constexpr? If not, why not?
+
+No; the member function marked as `constexpr` is implicitly `const`,  so the `set_`  `constexpr` member function can't change the data members of const Debug object.
+
+> The fact that this is a pointer to const means that const member functions cannot change the object on which they are called.
+
+## 7.55
+
+> Is the Data class from § 7.5.5 (p. 298) a literal class? If not, why not? If so, explain why it is literal.
+
+no;
+
+> An aggregate class (§ 7.5.5, p. 298) whose data members are all of literal type is a literal class.
+
+The class string is not a literal class

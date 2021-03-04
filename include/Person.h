@@ -19,8 +19,8 @@ class Person {
   Person() = default;
   Person(const std::string& name, const std::string& address)
       : name(name), address(address) {}
-  Person(const std::string& name) : name(name) {}
-  Person(std::istream& is);
+  explicit Person(const std::string& name) : name(name) {}
+  explicit Person(std::istream& is);
 };
 std::istream& read(std::istream& input, Person& p);
 std::ostream& write(std::ostream& output, Person& p);
