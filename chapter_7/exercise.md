@@ -571,3 +571,41 @@ no;
 > An aggregate class (§ 7.5.5, p. 298) whose data members are all of literal type is a literal class.
 
 The class string is not a literal class
+
+## 7.56
+
+> What is a static class member? What are the advantages of static members? How do they differ from ordinary members?
+
+static class member: a member that is associated with the class, rather than with individual objects of the class type.
+
+Each object can no need to store a common data. and if the data is changed, each object can use the new value.
+
+- a static data can have the same type as the class type of which it's a member. a nonstatic data member is restricted to being declared as a pointer or reference to an object of its class.
+- We can use a static member as a default argument.
+
+## 7.57
+
+> Write your own version of the Account class.
+
+[code7.57](./exercise7_57.h)
+
+## 7.58
+
+> Which, if any, of the following static data member declarations and definitions are errors? Explain why.
+
+Fixed:
+
+```c++
+// example.h
+class Example {
+  public:
+  	static constexpr double rate = 6.5;
+  	static const int vecSize = 20;
+  	static vector<double> vec;
+};
+// example.cpp
+#include "example.h"
+constexpr double Example::rate;
+vector<double> Example::vec(Example::vecSize);
+```
+
