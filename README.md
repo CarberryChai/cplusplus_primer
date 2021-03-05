@@ -7,6 +7,7 @@
 5. Statement  [notes](./chapter_5/note.md) | [exercise](./chapter_5/exercise.md)
 6. Function  [notes](./chapter_6/note.md) | [exercise](./chapter_6/exercise.md)
 7. Classes  [notes](./chapter_7/note.md) | [exercise](./chapter_7/exercise.md)
+8. The IO Library  [notes](./chapter_8/note.md) | [exercise](./chapter_8/exercise.md)
 
 本仓库代码在macOS平台用Clion编辑器编写。如果也用Clion编写的话，建议安装 `Save Actions`插件，开启保存自动格式化功能。
 
