@@ -68,7 +68,7 @@ the `istream` cin reach the end-of-file or occur an error, both set `eofbit` , `
 
 > The program in this section defined its istringstream object inside the outer while loop. What changes would you need to make if record were defined outside that loop? Rewrite the program, moving the definition of record outside the while, and see whether you thought of all the changes that are needed.
 
-[code8.11](./exercise8_11.cpp)
+[code8.11](exercise8_13.cpp)
 
 ## 8.12
 
@@ -80,7 +80,7 @@ Because we need an aggregate class, so there is no need in-class initializers.
 
 > Rewrite the phone number program from this section to read from a named file rather than from cin.
 
-[code8.13](./exercise8_13.cpp)
+[code8.13](exercise8_11.cpp)
 
 ## 8.14
 
