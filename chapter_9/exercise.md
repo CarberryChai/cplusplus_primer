@@ -88,3 +88,24 @@ list<string>::const_reference v;
 list<string>::reference;
 ```
 
+## 9.9
+
+> What is the difference between the begin and cbegin functions?
+
+When we call begin function, the yielded iterator type depends on the container type. We get a const version of the iterators only when call the begin on a const object, otherwise we get a plain iterator.
+
+The cbegin function let us get a `const_iterator` regardless of the type of the container.
+
+## 9.10
+
+> What are the types of the following four objects?
+
+```c++
+vector<int> v1;
+const vector<int> v2;
+auto it1 = v1.begin(); // vector<int>::interator
+auto it2 = b2.begin(); // vector<int>::const_iterator
+auto it3 = v1.cbegin(); // vector<int>::const_iterator
+auto it4 = v2.cbegin(); // vector<int>::const_iterator
+```
+
