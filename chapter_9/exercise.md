@@ -109,3 +109,27 @@ auto it3 = v1.cbegin(); // vector<int>::const_iterator
 auto it4 = v2.cbegin(); // vector<int>::const_iterator
 ```
 
+## 9.11
+
+> Show an example of each of the six ways to create and initialize a vector. Explain what values each vector contains.
+
+[code9.11](./exercise9_11.cpp)
+
+## 9.12
+
+> Explain the differences between the constructor that takes a container to copy and the constructor that takes two iterators.
+
+-  When we initialize a container as a copy of another container, the container type and element type of both containers must be identical.
+
+- When we pass iterators, there is no requirement that the con- tainer types be identical. Moreover, the element types in the new and original containers can differ as long as it is possible to convert (§ 4.11, p. 159) the elements we’re copying to the element type of the container we are initializing:
+
+  ```c++
+  vector<const int*> articles = {"a", "an", "the"};
+  forward_list<string> words(articles.begin(), articles.end());
+  ```
+
+## 9.13
+
+>  How would you initialize a vector<double> from a list<int>? From a vector<int>? Write code to check your answers.
+
+[code9.13](./exercise9_13.cpp)
