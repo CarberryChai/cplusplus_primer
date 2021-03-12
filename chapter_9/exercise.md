@@ -133,3 +133,28 @@ auto it4 = v2.cbegin(); // vector<int>::const_iterator
 >  How would you initialize a vector<double> from a list<int>? From a vector<int>? Write code to check your answers.
 
 [code9.13](./exercise9_13.cpp)
+
+## 9.14
+
+> Write a program to assign the elements from a list of` char*` pointers to C-style character strings to a vector of strings.
+
+[code9.14](./exercise9_14.cpp)
+
+## 9.15 and 9.16
+
+> Write a program to determine whether two `vector<int>`s are equal.
+>
+> Repeat the previous program, but compare elements in a `list<int>` to a `vector<int>.`
+
+[code9.15](./exercise9_15.cpp)
+
+## 9.17
+
+> Assuming c1 and c2 are containers, what (if any) constraints does the following usage place on the types of c1 and c2?
+
+```c++
+if (c1 < c2)
+```
+
+- If c1 and c2 are unordered associative constainers, which don't suuport the relational operators (>, >=, <, <=), so their comparison is invalid.
+- If containers of c1 and c2 support relational operators, but the element type doesn't support, we can't use the corresponding operations on containers holding that type.
