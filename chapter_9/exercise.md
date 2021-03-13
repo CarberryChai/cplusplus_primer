@@ -158,3 +158,74 @@ if (c1 < c2)
 
 - If c1 and c2 are unordered associative constainers, which don't suuport the relational operators (>, >=, <, <=), so their comparison is invalid.
 - If containers of c1 and c2 support relational operators, but the element type doesn't support, we can't use the corresponding operations on containers holding that type.
+
+## 9.18
+
+> Write a program to read a sequence of strings from the standard input into a deque. Use iterators to write a loop to print the elements in the deque.
+
+[code9.18](./exercise9_18.cpp)
+
+## 9.19
+
+> Rewrite the program from the previous exercise to use a list. List the changes you needed to make.
+
+[code9.19](./exercise9_19.cpp)
+
+## 9.20
+
+> Write a program to copy elements from a list<int> into two deques. The even-valued elements should go into one deque and the odd ones into the other.
+
+[code9.20](./exercise9_20.cpp)
+
+## 9.21
+
+> Explain how the loop from page 345 that used the return from insert to add elements to a list would work if we inserted into a vector instead.
+
+it's the same.
+
+But :
+
+>  It is legal to insert anywhere in a vector, deque, or string. However, doing so can be an expensive operation.
+
+> Before the loop, we initialize iter to lst.begin(). The first call to insert takes the string we just read and puts it in front of the element denoted by iter. The value returned by insert is an iterator referring to this new element. We assign that iterator to iter and repeat the while, reading another word. As long as there are words to insert, each trip through the while inserts a new element ahead of iter and reassigns to iter the location of the newly inserted element. That element is the (new) first element. Thus, each iteration inserts an element ahead of the first element in the list
+
+## 9.22
+
+> Assuming iv is a vector of ints, what is wrong with the following program? How might you correct the problem(s)?
+>
+> ```c++
+> vector<int>::iterator iter = iv.begin(), mid = iv.begin() + iv.size() / 2;
+> while (iter != mid )
+>   if (*iter == some_val)
+>     iv.insert(iter, 2 * some_val);
+> ```
+
+// TODO
+
+## 9.23
+
+> In the first program in this section on page 346, what would the values of `val`, `val2`, `val3`, and `val4` be if `c.size()` is 1?
+
+```c++
+if (!c.empty()) {
+  auto val = *c.begin(), val2 = c.front();
+  auto last = c.end();
+  auto val3 = *(--last);
+  auto val4 = c.back();
+}
+```
+
+Assume that `vector<int> c{1};`
+
+```c++
+val == val2 == val3 == val4;
+```
+
+## 9.24
+
+> Write a program that fetches the first element in a vector using at, the subscript operator, front, and begin. Test your program on an empty vector.
+
+[code9.24](./exercise9_24.cpp)
+
+<img src="https://cdn.jsdelivr.net/gh/CarberryChai/oss@master/image/EfQFx3-df1hJO.png" style="zoom:50%;" />
+
