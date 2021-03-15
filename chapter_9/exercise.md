@@ -229,3 +229,29 @@ val == val2 == val3 == val4;
 
 <img src="https://cdn.jsdelivr.net/gh/CarberryChai/oss@master/image/EfQFx3-df1hJO.png" style="zoom:50%;" />
 
+## 9.25
+
+> Exercise 9.25: In the program on page 349 that erased a range of elements, what hap- pens if elem1 and elem2 are equal? What if elem2 or both elem1 and elem2 are the off-the-end iterator?
+
+## 9.26
+
+> Using the following definition of ia, copy ia into a vector and into a list. Use the single-iterator form of erase to remove the elements with odd values from your list and the even values from your vector.
+
+```c++
+int ia[] = { 0, 1, 1, 2, 3, 5, 8, 13, 21, 55, 89 };
+```
+
+[code9.26](./exercise9_26.cpp)
+
+## 9.27
+
+> Write a program to find and remove the odd-valued elements in a forward_list<int>.
+
+[code9.27](./exercise9_27.cpp)
+
+## 9.28
+
+> Write a function that takes a forward_list<string> and two additional string arguments. The function should find the first string and insert the second immediately following the first. If the first string is not found, then insert the second string at the end of the list.
+
+[code9.28](./exercise9_28.cpp)
+
