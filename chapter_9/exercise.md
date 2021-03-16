@@ -255,3 +255,18 @@ int ia[] = { 0, 1, 1, 2, 3, 5, 8, 13, 21, 55, 89 };
 
 [code9.28](./exercise9_28.cpp)
 
+## 9.29
+
+> Given that vec holds 25 elements, what does vec.resize(100) do? What if we next wrote vec.resize(10)?
+
+```c++
+vector<int> vec(25);
+vec.resize(100); // add 75 elements whose value is 0
+vec.resize(10); // erase 90 elements from the back of vec
+```
+
+## 9.30
+
+> What, if any, restrictions does using the version of resize that takes a single argument place on the element type?
+
+If this argument is absent, added elements are value initialized (§ 3.3.1, p. 98). If the container holds elements of a class type and resize adds elements, we must supply an initializer or the element type must have a default constructor.
