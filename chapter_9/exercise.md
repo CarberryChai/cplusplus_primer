@@ -270,3 +270,47 @@ vec.resize(10); // erase 90 elements from the back of vec
 > What, if any, restrictions does using the version of resize that takes a single argument place on the element type?
 
 If this argument is absent, added elements are value initialized (§ 3.3.1, p. 98). If the container holds elements of a class type and resize adds elements, we must supply an initializer or the element type must have a default constructor.
+
+## 9.31
+
+> The program on page 354 to remove even-valued elements and dupli- cate odd ones will not work on a list or forward_list. Why? Revise the program so that it works on these types as well.
+
+[code9.31](./exercise9_31.cpp)
+
+## 9.32
+
+> In the program onpage 354 would it be legal to write the call to insert as follows? If not, why not?
+
+```c++
+iter = vi.insert(iter, *iter++);
+```
+
+it's illegal;
+
+> The order of evaluation of arguments is unspecified.
+
+In `insert` function `iter` could be its original value or orginal value + 1 or even anything else, depending on how compiler implemented
+
+## 9.33
+
+> he final example in this section what would happen if we did not assign the result of insert to begin? Write a program that omits this assignment to see if your expectation was correct.
+
+[code9.33](./exercise9_33.cpp)
+
+The program will be crashed
+
+## 9.34
+
+> Assuming vi is a container of ints that includes even and odd values, predict the behavior of the following loop. After you’ve analyzed this loop, write a program to test whether your expectations were correct.
+
+```c++
+iter = vi.begin();
+while(iter != vi.end())
+  if(*iter % 2)
+    iter = vi.insert(iter, *iter);
+	++iter;
+```
+
+infinite loop
+
+[code9.34](./exercise9_34.cpp)
