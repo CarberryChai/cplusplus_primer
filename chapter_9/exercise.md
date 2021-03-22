@@ -314,3 +314,78 @@ while(iter != vi.end())
 infinite loop
 
 [code9.34](./exercise9_34.cpp)
+
+## 9.35
+
+> Explain the difference between a vector’s capacity and its size.
+
+The size of a container is the number of elements it already hold; its capacity is how many elements it can hold before more space must be allocated.
+
+The capacity must be at least as large as size but can be larger.
+
+## 9.36
+
+> Can a container have a capacity less than its size?
+
+no
+
+## 9.37
+
+> Why don’t list or array have a capacity member?
+
+Conceptly , the capacity of list is infinite, but the size of array is known by compiler phase and can't be changed at run-time phase.
+
+## 9.38
+
+> Write a program to explore how vectors grow in the library you use.
+
+[code9.38](./exercise9_38.cpp)
+
+## 9.39
+
+> Explain what the following program fragment does:
+
+```c++
+vector<string> svec;
+svec.reserve(1024); // set svec container capacity not less than 1024
+string word;
+while(cin >> word) svec.push_back(word);
+svec.resize(svec.size() + svec.size() / 2);
+```
+
+We initially reserved 1024 elements , if there are more elements read from `cin`, our vector's capacity will be automatically increased to accommodate them.
+
+`resize()` is different from `reserve()`. In this case calling `resize()` will add another `svec.size() / 2` value initialized elements to `svec`. if this exceeds `svec.capacity()` it wil also automatically increase it to accomodate the new elements.
+
+## 9.40
+
+> If the program in the previous exercise reads 256 words, what is its likely capacity after it is resized? What if it reads 512? 1,000? 1,048?
+
+`reserve(1024)`
+
+| read | size | capacity |
+| ---- | ---- | -------- |
+| 256  | 384  | 1024     |
+| 512  | 768  | 1024     |
+| 1000 | 1500 | 2048     |
+| 1048 | 1572 | 2048     |
+
+## 9.41
+
+> Write a program that initializes a string from a vector<char>.
+
+[code9.41](./exercise9_41.cpp)
+
+## 9.42
+
+> Given that you want to read a character at a time into a string, and you know that you need to read at least 100 characters, how might you improve the performance of your program?
+
+```c++
+vector<char> vc;
+vc.reserve(100);
+char c;
+while(cin >> c) vc.push_back(c);
+string s(vc.cbegin(), vc.cend());
+cout << s << endl;
+```
+
