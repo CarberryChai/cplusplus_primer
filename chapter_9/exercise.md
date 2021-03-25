@@ -389,3 +389,26 @@ string s(vc.cbegin(), vc.cend());
 cout << s << endl;
 ```
 
+## 9.43
+
+> Write a function that takes three strings, s, oldVal, and newVal. Using iterators, and the insert and erase functions replace all instances of oldVal that appear in s by newVal. Test your function by using it to replace common abbre- viations, such as “tho” by ”though” and ”thru” by “through”.
+
+[code9.43](./exercise9_43.cpp)
+
+## 9.44
+
+> Rewrite the previous function using an index and replace.
+
+[code9.44](./exercise9_44.cpp)
+
+## 9.45
+
+> Write a funtion that takes a string representing a name and two other strings representing a prefix, such as “Mr.” or “Ms.” and a suffix, such as “Jr.” or “III”. Using iterators and the insert and append functions, generate and return a new string with the suffix and prefix added to the given name.
+
+[code9.45](./exercise9_45cpp)
+
+## 9.46
+
+> Rewrite the previous exercise using a position and length to manage the strings. This time use only the insert function.
+
+[code9.46](./exercise9_46cpp)

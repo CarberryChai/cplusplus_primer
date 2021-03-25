@@ -15,4 +15,6 @@ int main() {
   }
   string s(vc.cbegin(), vc.cend());
   std::cout << s << std::endl;
+  std::cout << s.assign("hello").replace(0, 1, "H").append(" world")
+            << std::endl;
 }
