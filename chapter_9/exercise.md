@@ -412,3 +412,40 @@ cout << s << endl;
 > Rewrite the previous exercise using a position and length to manage the strings. This time use only the insert function.
 
 [code9.46](./exercise9_46cpp)
+
+## 9.47
+
+>  Write a program that finds each numeric character and then each alpha- betic character in the string "ab2c3d7R4E6". Write two versions of the program. The first should use find_first_of, and the second find_first_not_of.
+
+[code9.47](./exercise9_47cpp)
+
+## 9.48
+
+> Given the definitions of name and numbers on page 365, what does numbers.find(name) return?
+
+`string::npos`
+
+## 9.49
+
+> A letter has an ascender if, as with d or f, part of the letter extends above the middle of the line. A letter has a descender if, as with p or g, part of the letter extends below the line. Write a program that reads a file containing words and reports the longest word that contains neither ascenders nor descenders.
+
+`// TODO`
+
+## 9.50
+
+> Write a program to process a vector<string>s whose elements rep- resent integral values. Produce the sum of all the elements in that vector. Change the program so that it sums of strings that represent floating-point values.
+
+[code9.50](./exercise9_50cpp)
+
+## 9.51
+
+> Write a class that has three unsigned members representing year, month, and day. Write a constructor that takes a string representing a date. Your constructor should handle a variety of date formats, such as January 1, 1900, 1/1/1900, Jan 1, 1900, and so on.
+
+[code9.51](./exercise9_51cpp)
+
+## 9.52
+
+> Use a stack to process parenthesized expressions. When you see an open parenthesis, note that it was seen. When you see a close parenthesis after an open parenthesis, pop elements down to and including the open parenthesis off the stack. push a value onto the stack to indicate that a parenthesized expression was replaced.
+
+// TODO
+
