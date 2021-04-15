@@ -93,3 +93,22 @@ Inserters like `back_inserter` is part of `<iterator>`, rather than `<algorithm>
 > Why do you think the algorithms don’t change the size of containers?
 
 Cause the library algorithms operate on **iterators**, **not containers**. Thus, an algorithm **cannot (directly)** add or remove elements.
+
+## 10.11
+
+> Write a program that uses stable_sort and isShorter to sort a vector passed to your version of elimDups. Print the vector to verify that your program is correct.
+
+[10.11code](./exercise10_11.cpp)
+
+## 10.12
+
+> Write a function named compareIsbn that compares the isbn() members of two Sales_data objects. Use that function to sort a vector that holds Sales_data objects.
+
+[10.12code](./exercise10_12.cpp)
+
+## 10.13
+
+> The library defines an algorithm named partition that takes a pred- icate and partitions the container so that values for which the predicate is true appear in the first part and those for which the predicate is false appear in the second part. The algorithm returns an iterator just past the last element for which the predicate returned true. Write a function that takes a string and returns a bool indicating whether the string has five characters or more. Use that function to partition words. Print the elements that have five or more characters.
+
+[10.13code](./exercise10_13.cpp)
+
