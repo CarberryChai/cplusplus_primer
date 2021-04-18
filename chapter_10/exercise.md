@@ -154,3 +154,28 @@ Cause the library algorithms operate on **iterators**, **not containers**. Thus,
 > Write a lambda that captures a local int variable and decrements that variable until it reaches 0. Once the variable is 0 additional calls should no longer decrement the variable. The lambda should return a bool that indicates whether the captured variable is 0.
 
 [10.21code](./exercise10_20.cpp)
+
+## 10.22
+
+> Rewrite the program to count words of size 6 or less using functions in place of the lambdas.
+
+[10.22code](./exercise10_22.cpp)
+
+## 10.23
+
+> How many arguments does bind take?
+
+Assuming the function to be bound has `n` parameters, bind will take `n + 1` parameters .
+
+## 10.24
+
+> Use bind and check_size to find the first element in a vector of ints that has a value greater than the length of a specified string value.
+
+[10.24code](./exercise10_24.cpp)
+
+## 10.25
+
+> In the exercises for § 10.3.2 (p. 392) you wrote a version of biggies that uses partition. Rewrite that function to use check_size and bind.
+
+[10.25code](./exercise10_25.cpp)
+
