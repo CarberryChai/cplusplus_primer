@@ -179,3 +179,29 @@ Assuming the function to be bound has `n` parameters, bind will take `n + 1` par
 
 [10.25code](./exercise10_25.cpp)
 
+## 10.26
+
+> Explain the differences among the three kinds of insert iterators.
+
+- `back_inserter` creates an iterator that use `push_back`
+- `front_inserter` creates an iterator that uses `push_front`
+- This function takes a second argument, which must be an iterator into the given container. Elements are inserted ahead of the element denoted by the given iterator.
+
+## 10.27
+
+> In addition to unique (§ 10.2.3, p. 384), the library defines function named unique_copy that takes a third iterator denoting a destination into which to copy the unique elements. Write a program that uses unique_copy to copy the unique elements from a vector into an initially empty list.
+
+[10.27code](./exercise10_27.cpp)
+
+真坑，必须是连续重复的才能去重！！
+
+`std::unique_copy`:
+
+Copies the elements from the range `[first, last)`, to another range beginning at `d_first` in such a way that **there are no consecutive equal elements.** Only the first element of each group of equal elements is copied.
+
+## 10.28
+
+> Copy a vector that holds the values from 1 to 9 inclusive, into three other containers. Use an inserter, a back_inserter, and a front_inserter, respectivly to add elements to these containers. Predict how the output sequence varies by the kind of inserter and verify your predictions by running your programs.
+
+[10.28code](./exercise10_28.cpp)
+
