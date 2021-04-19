@@ -205,3 +205,28 @@ Copies the elements from the range `[first, last)`, to another range beginning a
 
 [10.28code](./exercise10_28.cpp)
 
+## 10.29
+
+> Write a program using stream iterators to read a text file into a vector of strings.
+
+[10.29code](./exercise10_29.cpp)
+
+## 10.30 and 10.31
+
+> - Use stream iterators, sort, and copy to read a sequence of integers from the standard input, sort them, and then write them back to the standard output.
+> - Update the program from the previous exercise so that it prints only the unique elements. Your program should use unqiue_copy (§ 10.4.1, p. 403).
+
+[10.30code](./exercise10_30.cpp)
+
+## 10.32
+
+> Rewrite the bookstore problem from § 1.6 (p. 24) using a vector to hold the transactions and various algorithms to do the processing. Use sort with your compareIsbn function from § 10.3.1 (p. 387) to arrange the transactions in order, and then use find and accumulate to do the sum.
+
+[10.32code](./exercise10_32.cpp)
+
+## 10.33
+
+> Write a program that takes the names of an input file and two output files. The input file should hold integers. Using an istream_iterator read the input file. Using ostream_iterators, write the odd numbers into the first output file. Each value should be followed by a space. Write the even numbers into the second file. Each of these values should be placed on a separate line.
+
+[10.33code](./exercise10_33.cpp)
+
