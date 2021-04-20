@@ -230,3 +230,51 @@ Copies the elements from the range `[first, last)`, to another range beginning a
 
 [10.33code](./exercise10_33.cpp)
 
+## 10.34
+
+> - Use reverse_iterators to print a vector in reverse order.
+> - Now print the elements in reverse order using ordinary iterators.
+> - Use find to find the last element in a list of ints with value 0.
+> - Given a vector that has ten elements, copy the elements from posi- tions 3 through 7 in reverse order to a list.
+
+[10.34code](./exercise10_34.cpp)
+
+## 10.38
+
+> List the five iterator categories and the operations that each supports.
+
+- Input iterators: `==`, `!=`,  prefix and postfix `++`, `*` , `->`
+- Output iterators:  prefix and postfix `++`, `*`
+- Forward iterators: `==`, `!=`,  prefix and postfix `++`, `*` , `->`
+- Bidirectional iterators: `==`, `!=`,  prefix and postfix `++`, `*` , `->`, prefix and postfix `--`
+- Random-access iterators: `==`, `!=`,  prefix and postfix `++`, `*` , `->`, prefix and postfix `--`, `<, <=, >=` , `+, +=, -, -=`, subscript `iter[n]`
+
+## 10.39
+
+> What kind of iterator does a list have? What about a vector?
+
+Bidirectional iterator; Random-access iterator
+
+## 10.40
+
+> What kinds of iterators do you think copy requires? What about reverse or unique?
+
+- `copy`: first and second are input iterators, and the last is output iterator
+- `reverse`: Bidirectional iterator
+- `unique`: forward iterator
+
+## 10.41
+
+> Based only on the algorithm and argument names, describe the oper- ation that the each of the following library algorithms performs:
+
+- `replace(beg, end, old_val, new_val);`  replace the old_val elements in the range beg and end with new_val
+- `replace_if(beg, end, pred, new_val);` replace the elements that match the pred with new_val
+- `replace_copy(beg, end, dest, old_val, new_val);` replace the old_val  elements with new_val and copy them into dest. the original container is not changed.
+- `replace_copy_if(beg, end, dest, pred, new_val);`copy the new_elements which pred is true in the input range into dest.
+
+## 10.42
+
+> Reimplement the program that eliminated duplicate words that we wrote in § 10.2.3 (p. 383) to use a list instead of a vector.
+
+[10.42code](./exercise10_42.cpp)
+
