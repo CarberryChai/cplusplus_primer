@@ -10,6 +10,7 @@
 8. The IO Library  [notes](./chapter_8/note.md) | [exercise](./chapter_8/exercise.md)
 9. Sequential Containers  [exercise](./chapter_9/exercise.md)
 10. Generic Algorithms [exercise](./chapter_10/exercise.md)
+11. Generic Algorithms [exercise](./chapter_11/exercise.md)
 
 本仓库代码在macOS平台用Clion编辑器编写。如果也用Clion编写的话，建议安装 `Save Actions`插件，开启保存自动格式化功能。
 
