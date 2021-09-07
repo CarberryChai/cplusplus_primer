@@ -172,3 +172,77 @@ Return type: `pair<map<string, vector<int>>::iterator, bool>`
 > Rewrite the map that stored vectors of children’s names with a key that is the family last name for the exercises in § 11.2.1 (p. 424) to use a multimap.
 
 [11.23code](./exercise11_23.cpp)
+
+## 11.24
+
+> What does the following program do?
+
+```c++
+map<int, int> m;
+m[0] = 1;
+// add an pair {0, 1} element to map m;
+```
+
+
+
+## 11.25
+
+> Contrast the following program with the one in the previous exercise
+>
+> ```c++
+> vector<int> v;
+> v[0] = 1;
+> ```
+>
+> 
+
+Note:
+
+> It is crucially important to understand that we may use the subscript operator (the [] operator) to fetch only elements that actually exist.
+>
+> It is an error to subscript an element that doesn't exist.
+
+## 11.26
+
+> What type can be used to subscript a map? What type does the sub- script operator return? Give a concrete example—that is, define a map and then write the types that can be used to subscript the map and the type that would be returned from the subscript operator.
+
+```c++
+map<string, size_t> words_count;
+```
+
+`map<string, size_t>::key_type`
+
+`map<string, size_t>::mapped_type`
+
+## 11.27
+
+> What kinds of problems would you use count to solve? When might you use find instead?
+
+I would use count to count elements in `multimap` and `multiset`
+
+As for the associative containers that have unique key, i would use find instead of count.
+
+## 11.28 and 11.29
+
+> - Define and initialize a variable to hold the result of calling find on a map from string to vector of int.
+> - What do upper_bound, lower_bound, and equal_range return when you pass them a key that is not in the container?
+
+[11.28code](./exercise11_28.cpp)
+
+## 11.30
+
+> Explain the meaning of the operand pos.first->second used in the output expression of the final program in this section.
+
+The `pos`, returned from `authors.equal_range(search_item)`, is a pair of iterator,
+
+```c++
+pos.first // get the pair first element
+pos.first->second // get the value of the element that the pair first element points
+```
+
+## 11.31
+
+> Write a program that defines a multimap of authors and their works. Use find to find an element in the multimap and erase that element. Be sure your program works correctly if the element you look for is not in the map.
+
+[11.31code](./exercise11_31.cpp)
+

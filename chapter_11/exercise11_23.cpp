@@ -4,10 +4,8 @@
 #include <iostream>
 #include <map>
 #include <utility>
-#include <vector>
 
 using std::string;
-using std::vector;
 
 int main() {
   std::multimap<string, string> families;
