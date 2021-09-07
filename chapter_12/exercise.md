@@ -42,3 +42,15 @@ The type of i is `std::vector<std::string>::size_type`, which is an unsigned int
 > We did not make the constructor that takes an initializer_list explicit. Discuss the pros and cons of this design choice.
 
 Keywork `explicit` prevents automatic conversion form an `initializer_list` to `StrBlob`. This design choice wuld easy to use but hard to debug.
+
+# 12.6
+
+> Write a function that returns a dynamically allocated vector of ints. Pass that vector to another function that reads the standard input to give values to the elements. Pass the vector to another function to print the values that were read. Remember to delete the vector at the appropriate time.
+
+[code](./exercise12_6.cpp)
+
+# 12.7
+
+> Redo the previous exercise, this time using shared_ptr.
+
+[code](./exercise12_7.cpp)
