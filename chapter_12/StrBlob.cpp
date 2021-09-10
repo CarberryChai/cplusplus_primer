@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <vector>
 
+#include "StrBlobPtr.h"
 StrBlob::StrBlob() : data(std::make_shared<std::vector<std::string>>()) {}
 StrBlob::StrBlob(std::initializer_list<std::string> ils)
     : data(std::make_shared<std::vector<std::string>>(ils)) {}
@@ -43,3 +44,6 @@ void StrBlob::pop_back() {
   check(0, "pop_back on empty StrBlob");
   data->pop_back();
 }
+
+StrBlobPtr StrBlob::begin() { return StrBlobPtr(*this); }
+StrBlobPtr StrBlob::end() { return StrBlobPtr(*this, data->size()); }

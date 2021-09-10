@@ -9,9 +9,13 @@
 #include <memory>
 #include <string>
 #include <vector>
+class StrBlobPtr;
 class StrBlob {
  public:
   using size_type = std::vector<std::string>::size_type;
+  friend class StrBlobPtr;
+  StrBlobPtr begin();
+  StrBlobPtr end();
   StrBlob();
   StrBlob(std::initializer_list<std::string> ils);
   size_type size() const { return data->size(); }

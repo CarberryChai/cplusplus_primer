@@ -128,3 +128,63 @@ delete p;
 
 Error, double free the same memory
 
+## 12.16
+
+> compilers don't always give easy-to-understand error messages if we attempt to copy or assign a unique_ptr. Write a program that contains these errors to see how your compiler diagnoses them.
+
+```c++
+std::unique_ptr<int> p1(new int(12));
+std::unique_ptr<int> p2(p1); // error: copy constructor is implicitly deleted because 'unique_ptr<int>' has a user-declared move constructor
+std::unique_ptr<int> p3;
+p3 = p1; // error: copy assignment operator is implicitly deleted because 'unique_ptr<int>' has a user-declared move constructor
+std::cout << *p2 << std::endl;
+```
+
+## 12.18
+
+> Why doesn't shared_ptr have a release member ?
+
+`shared_ptr` can't give away ownership unless it's unique() because the other copy will still destory the object.
+
+## 12.19
+
+> Define your own version of `StrBlobPtr` and update your `StrBlob` class with the appropriate friend declaration and begin and end members.
+
+[StrBlobPtr.h](./StrBlobPtr.h)
+
+[StrBlobPtr.cpp](./StrBlobPtr.cpp)
+
+## 12.20
+
+> Write a program that reads an input file a line at a time into a `StrBlob` and use a `StrBlobPtr` to prit each element int rhat `StrBlob`.
+
+[code](./exercise12_20.cpp)
+
+## 12.21
+
+> We could have written `StrBlobPtr`'s deref member as follows:
+>
+> ```c++
+> std::string& deref() const {
+>   return (*check(curr, "dereference past end"))[curr];
+> }
+> ```
+>
+> Which ersion do you think is better and why?
+
+The original one is better, because it's more readable.
+
+## 12.25
+
+> Given the following new expression, how would you delete pa ?
+
+```c++
+int *pa = new int[10];
+delete [] pa;
+```
+
+## 12.26
+
+> Rewrite the program on page 481 using an allocator.
+
+[code](./exercise12_26.cpp)
