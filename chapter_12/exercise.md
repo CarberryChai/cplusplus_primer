@@ -188,3 +188,28 @@ delete [] pa;
 > Rewrite the program on page 481 using an allocator.
 
 [code](./exercise12_26.cpp)
+
+## 12.30
+
+> Define your own versions of the TextQuery and QueryResult classes and execute the runQueries function.
+
+[TextQuery.h](./TextQuery.h)
+
+[TextQuery.cpp](./TextQuery.cpp)
+
+[QueryResult.h](./QueryResult.h)
+
+[QueryResult.cpp](./QueryResult.cpp)
+
+## 12.32
+
+> Rewrite the TextQuery and QueryResult classes to use a StrBlob instead of a vector<string> to hold the input file.
+
+[TextQueryStrBlob.h](./TextQueryStrBlob.h)
+
+[TextQueryStrBlob.cpp](./TextQueryStrBlob.cpp)
+
+[QueryResultStrBlob.h](./QueryResultStrBlob.h)
+
+[QueryResultStrBlob.cpp](./QueryResultStrBlob.cpp)
+
