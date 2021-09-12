@@ -42,3 +42,95 @@ Point foo_bal(Point arg) {
   return *heap;
 }
 ```
+
+## 13.5
+
+> given the following sketch of a class, write a copy constructor that copies all the members. Your constructor should dynamically allocate a new string and copy the object to which ps points, rather than copying ps itself.
+
+```c++
+class HasPtr {
+  public:
+  	HasPtr(const std::string &s = std::string()):ps(new std::string(s)), i(0) {}
+  	// copy constructor
+  	HasPtr(const HasPtr &org):ps(new string(*org.ps)), i(org.i) {}
+  private:
+  	std::string *ps;
+  	it i;
+}
+```
+
+## 13.8
+
+> Write the assignment operator for the HasPtr class from exercise 13.5 . As with the copy constructor, your assignment operator should copy the object to which ps points.
+
+```c++
+class HasPtr {
+  public:
+  	HasPtr(const std::string &s = std::string()):ps(new std::string(s)), i(0) {}
+  	// copy constructor
+  	HasPtr(const HasPtr &org):ps(new string(*org.ps)), i(org.i) {}
+  	HasPtr& operator=(const HasPtr &rhs){
+      delete ps;
+      ps = new std::string(*rhs.ps);
+      i = rhs.i;
+      return *this;
+    }
+  private:
+  	std::string *ps;
+  	it i;
+}
+```
+
+## 13.11
+
+> Add a destructor to your HasPtr class from the previous exercises.
+
+```c++
+class HasPtr {
+  public:
+  	HasPtr(const std::string &s = std::string()):ps(new std::string(s)), i(0) {}
+  	// copy constructor
+  	HasPtr(const HasPtr &org):ps(new string(*org.ps)), i(org.i) {}
+  	HasPtr& operator=(const HasPtr &rhs){
+      delete ps;
+      ps = new std::string(*rhs.ps);
+      i = rhs.i;
+      return *this;
+    }
+  	~HasPtr(){
+      delete ps;
+    }
+  private:
+  	std::string *ps;
+  	it i;
+}
+```
+
+## 13.12
+
+> How many destructor calls occur in the following code fragment ?
+
+```c++
+bool fcn(const Sales_data *trans, Sales_data accum) {
+  Sales_data item1(*trans), item2(accum);
+  return item1.isbn() != item2.isbn();
+}
+```
+
+3 times. `accum` 、`item1`、`item2`
+
+## 13.13
+
+> a good way to understand copy-control members and constructors is to define a simple class with these members in which each member prints its name:
+>
+> ```c++
+> struct X {
+>   X() {std::cout<< "X()" << std::endl;}
+>   X(const X&) {std::cout << "X(const X&)" << std::endl;}
+> };
+> ```
+>
+> Add the copy-assignment operator and destructor to X and write a program using X objects in various ways: pass them as nonreference and reference parameters; dynamically allocate them; put them in container; and so forth. Study the output until you are certain you understand when and why each copy-control member is used. As you read the output, remember that the compiler can omit call to the copy constructor.
+
+[code](./exercise13_13.cpp)
+
