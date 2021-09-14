@@ -92,8 +92,9 @@ class HasPtr {
   	// copy constructor
   	HasPtr(const HasPtr &org):ps(new string(*org.ps)), i(org.i) {}
   	HasPtr& operator=(const HasPtr &rhs){
+      auto temp = new std::string(*rhs.ps);
       delete ps;
-      ps = new std::string(*rhs.ps);
+      ps = temp;
       i = rhs.i;
       return *this;
     }
@@ -134,3 +135,100 @@ bool fcn(const Sales_data *trans, Sales_data accum) {
 
 [code](./exercise13_13.cpp)
 
+Output:
+
+> X()
+> X(const X&)
+> X(const X&)
+> X(const X&)
+> X(const X&)
+> ~X()
+> ~X()
+> ~X()
+> ~X()
+> ~X()
+
+## 13.14
+
+> assume that numbered is a class with a default constructor that generates a unique serial number for each object, which is stored in a data member named mysn. Assming numbered uses the synthesized copy-control members and given the following function:
+>
+> ```c++
+> void f (numbered s ) {
+>   cout << s.mysn << endl;
+> }
+> ```
+>
+> What output does the following code produce ?
+>
+> ```c++
+> numbered a, b = a, c = b;
+> f(a);
+> f(b);
+> f(c);
+> ```
+
+They are the same serial number.
+
+## 13.15
+
+> Assume numbered has a copy constructor that generates a new serial number. Does that change the output of the calls in the previous exercise ?  If so, why ? What output gets generated ?
+
+Yes , 
+
+## 13.18,  13.19
+
+> - Define a Employee class that contains an employee name and a unique employee identifier. Give the class a default constructor and a constructor that takes a string representing the employee's name. Each constructor should generate a unique ID by incrementing a static data member.
+> - Does your Employee class need to define its own versions of the copy-control members ? If so, why ? If not, why not ? Implement whatever copy-control members you think Employee needs.
+
+[code](./exercise13_18_19.cpp)
+
+## 13.20
+
+> Explain what happens when we copy, assign, or destory objects of our TextQuery and QueryResult classs form p.484.
+
+The smart points (shared_ptr) will be copied.
+
+## 13.21
+
+> Do you think the TextQuery and QueryResult classes need to define their own versions of the copy-control members ? If so, why ? If not, why not ? Implement whichever copy-constrol operations you think these classes require.
+
+no need. The  type of the members of TextQury and QueryResult is smart point, it meet all the requirement.
+
+## 13.24
+
+> What would happen if the version of HasPtr in this section didn't define a destructor ? what if HasPtr didn't define the copy constructor ?
+
+It will leak the memory. The object that the member ps points will not be freed.
+
+## 13.27
+
+> Define your own reference-couonted version of HasPtr.
+
+[code](./exercise13_27.cpp)
+
+## 13.28
+
+> Given the following classes, implement a default constructor and the necessary copy-constructor members.
+>
+> (a)
+>
+> ```c++
+> class TreeNode {
+>   private:
+>   	std::string value;
+>   	int count;
+>   	TreeNode *left;
+>   	TreeNode *right;
+> };
+> ```
+>
+> (b)
+>
+> ```c++
+> class BinStrTree {
+>   private:
+>   	TreeNode *root;
+> };
+> ```
+>
+> 

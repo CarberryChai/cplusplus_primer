@@ -22,7 +22,6 @@ void foo(const X &a, X b) {
   vec.push_back(b);
 }
 int main() {
-  X *p = new X;
-  foo(*p, *p);
-  delete p;
+  X a, b;
+  a = b;
 }
