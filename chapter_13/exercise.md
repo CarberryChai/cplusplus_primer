@@ -230,5 +230,20 @@ It will leak the memory. The object that the member ps points will not be freed.
 >   	TreeNode *root;
 > };
 > ```
->
-> 
+
+[code](exercise13_28.cpp)
+
+## 13.33
+
+> Why is the parameter to the save and remove members of Message a Folder& ? Why didn't we define that parameter as Folder ? or const Folder& ?
+
+Bcz we will use Folder& to change the member of Folder.
+
+## 13.39
+
+> Write your own version of StrVec, including versions of reserve, capacity, and resize.
+
+[StrVec.h](,/StrVec.h)
+
+[StrVec.cpp](./StrVec.cpp)
+
