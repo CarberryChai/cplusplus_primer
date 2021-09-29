@@ -247,3 +247,148 @@ Bcz we will use Folder& to change the member of Folder.
 
 [StrVec.cpp](./StrVec.cpp)
 
+## 13.40
+
+> Add a constructor that takes an initializer_list<string> to your StrVec class.
+
+[StrVec.h](,/StrVec.h)
+
+[StrVec.cpp](./StrVec.cpp)
+
+## 13.43
+
+> rewrite the free member to use for_each and a lambda in place of the for loop to destory the elements. Which implementation do you prefer, and why ?
+
+```c++
+void StrVec::free() {
+  if (elements) {
+    // auto p = first_free;
+    // while (p != elements) {
+    //   std::allocator_traits<std::allocator<std::string>>::destroy(alloc,
+    //   --p);
+    // }
+    std::for_each(elements, first_free, [](const std::string& s) {
+      std::allocator_traits<std::allocator<std::string>>::destroy(alloc, &s);
+    });
+    alloc.deallocate(elements, cap - elements);
+  }
+}
+```
+
+I prefer the last one, it's so handy and readable.
+
+## 13.44 or 13.47 or 13.48  or 13.49 or 13.50
+
+> - Define a vector<String> and call push_back several times on that vector. run your program and see how often Strings are copied.
+> - Put print statement in the move operations in your string class and rerun the program from exercise 13.48 that used a vector<String> to see when the copies are avoided.
+
+[MyString.h](./MyString.h)
+
+[MyString.cpp](./MyString.cpp)
+
+```c++
+int main() {
+  std::vector<MyString> vec;
+  vec.push_back("hello");
+  vec.push_back("chai");
+}
+```
+
+
+
+14.48
+
+```
+MyString const char constructor
+MyString copy constructor is called
+MyString destructor is called
+MyString const char constructor
+MyString copy constructor is called
+MyString copy constructor is called
+MyString destructor is called
+MyString destructor is called
+MyString destructor is called
+MyString destructor is called
+```
+
+14.50
+
+```
+MyString const char constructor
+MyString move constructor is called
+MyString destructor is called
+MyString const char constructor
+MyString move constructor is called
+MyString move constructor is called
+MyString destructor is called
+MyString destructor is called
+MyString destructor is called
+MyString destructor is called
+```
+
+
+
+## 13.45
+
+> distinguish between an rvalue reference and an lvalue reference.
+
+Definition:
+
+- an lvalue reference is a reference that must be bound to an lvalue.
+- an rvalue reference is a reference that may be bound only to an object that is about to be destroyed.
+
+## 13.46
+
+> Which kind of reference can be bound to the following initializers ?
+
+```c++
+int f();
+vector<int> vi(100);
+int &&r1 = f();
+int &r2 = vi[0];
+int &r3 = r1;
+int &&r4 = vi[0] * f();
+```
+
+## 13.51
+
+> although unique_ptrs cannot be copied, in 12.1.5(p. 471) we wrote a clone function that returned a unique_ptr by value. Explain why that function is legal and gow it works.
+
+> If the class deﬁnes either a move constructor and/or a move-assignment operator, then the synthesized copy constructor and copy-assignment operator for that class will be deﬁned as deleted.
+
+Because the function `clone` return a rvalue. the compiler knows that the object being returned is about to be destroyed. so that when we construct a new object from the return value or assign the return value to an object, we call move constructor or move-assignment operator. Thus no copy is made. the resource is moved from the return object to the new object.
+
+## 13.52
+
+> Explain in detail what happens in the assignments of the HasPtr objects on page 541. In particular, describe step by step what happens to values of hp. hp2, and of the rhs parameter in the HasPtr assignment operator.
+
+## 13.56
+
+> What would happen if we defined sorted as:
+
+```c++
+Foo Foo::sorted() const & {
+  Foo ret(*this);
+  return ret.sorted();
+}
+```
+
+It will be infinite loop;
+
+## 13.57
+
+> What if defined sorted as :
+
+```c++
+Foo Foo::sorted() const & {
+  return Foo(*this).sorted();
+}
+```
+
+Ok, it's fine.
+
+## 13.58
+
+> Write versions of class Foo with print statements in their sorted functions to test your answers to the previous two exercises.
+
+[code](./exercise13_58.cpp)
