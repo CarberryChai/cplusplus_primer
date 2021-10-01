@@ -3,9 +3,7 @@
 //
 #include "StrVec.h"
 
-#include <algorithm>
 #include <memory>
-#include <string>
 #include <utility>
 
 std::allocator<std::string> StrVec::alloc;

@@ -13,6 +13,7 @@
 11. Associative Containers [exercise](./chapter_11/exercise.md)
 12. Dynamic Memory [exercise](./chapter_12/exercise.md)
 13. Copy Control [exercise](./chapter_13/exercise.md)
+15. Object-Oriented Programming [exercise](./chapter_15/exercise.md)
 
 本仓库代码在macOS平台用Clion编辑器编写。如果也用Clion编写的话，建议安装 `Save Actions`插件，开启保存自动格式化功能。
 
