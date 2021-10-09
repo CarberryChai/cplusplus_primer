@@ -54,3 +54,43 @@ A `protected` member in base class can be access  by its derived class, while a 
 > Define a class that implements a limited discount strategy, which applies a discount to books purchased up to a given limit. if the number of copies exceeds that limit, the normal price applies to those purchased beyond the limit.
 
 [code](./exercise15_7.cpp)
+
+## 15.8
+
+> define static type and dynamic type.
+
+> The **static type** of an expression is always known at **compile** time —— it's the type with which a variable is declared or that an expression yields.
+>
+> The **dynamic type** is the type of the object in memory that the variable or expression represents. the dynamic type may not be known until run time.
+>
+> The dynamic type of an expression that is neither a reference nor a pointer is always the same as that expression's static type.
+
+## 15.9
+
+> when is it possible for an expression's static type to differ from its dynamic type ? give three examples in which the static and dynamic type differ.
+
+> The dynamic type of an expression that is neither a reference nor a pointer is always the same as that expression's static type.
+
+```c++
+class Base {};
+class Derived : public Base {};
+Derived d;
+Base *bp = &d;
+Base &br = d;
+Derived *dp = &d;
+Base *bp2 = dp;
+```
+
+## 15.10
+
+> recalling the discussion from p.311, explain how the program on page 317 that passed an `ifstream` to the `Sales_data` `read` function works.
+
+The type `ifstream` inherits from `istream`. Thus, we can use objects of type `ifstream` as if they were `istream` objects. The parameter of `read` function is a reference to base type `istream`, the automatic derived-to-base conversion applies when we pass  
+
+ a derived type `ifstream` to that function. inside `read` function, we can use the `istream` subpart in the `ifstream` object through the reference.
+
+## 15.11
+
+> Add a virtual `debug` function to your `Quote` class hierarchy that displays the data members of the respective classes.
+
+[code](./exercise15_7.cpp)

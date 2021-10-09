@@ -11,6 +11,10 @@ class Quote {
   Quote(std::string book, double p) : price(p), bookNo(std::move(book)) {}
   std::string isbn() const { return bookNo; }
   virtual double net_price(size_t n) const { return n * price; }
+  virtual void debug() const {
+    std::cout << "The isbn is " << bookNo << ", and the price is " << price
+              << std::endl;
+  }
   virtual ~Quote() = default;
 
  protected:
@@ -25,6 +29,11 @@ class Limit_Quote : public Quote {
   Limit_Quote() = default;
   Limit_Quote(const std::string &book, double p, size_t max_q, double disc)
       : Quote(book, p), max_qty(max_q), discount(disc) {}
+  void debug() const override {
+    this->Quote::debug();
+    std::cout << "max quality is " << max_qty << ", discount is " << discount
+              << std::endl;
+  }
   double net_price(size_t n) const override;
 
  private:
@@ -46,5 +55,10 @@ double print_total(std::ostream &os, const Quote &book, size_t n) {
 
 int main() {
   Limit_Quote book("c++ primer", 62, 50, 0.1);
-  print_total(std::cout, book, 100);
+  print_total(std::cout, book, 20);
+  std::cout << "*********************" << std::endl;
+  book.debug();
+  std::cout << "**************************" << std::endl;
+  Quote quote("learn english", 40);
+  quote.debug();
 }
