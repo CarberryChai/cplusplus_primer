@@ -94,3 +94,84 @@ The type `ifstream` inherits from `istream`. Thus, we can use objects of type `i
 > Add a virtual `debug` function to your `Quote` class hierarchy that displays the data members of the respective classes.
 
 [code](./exercise15_7.cpp)
+
+## 15.13
+
+> given the following classes, explain each print function:
+>
+> ```c++
+> class base {
+>   public:
+>   	string name() {return basename;}
+>   	virtual void print(ostream &os) {os << basename;}
+>   private:
+>   	string basename;
+> };
+> class derived : public base {
+>   public:
+>   	void print(ostream &os) {
+>       print(os);
+>       os<<" " <<i;
+>     }
+>   private:
+>   	int i;
+> };
+> ```
+>
+> 
+
+Yes 
+
+> If a derived virtual function that intended to call its base-class version omits the scope operator, the call will be resolved at run time as a call to the derived version itself, resulting in an infinite recursion.
+
+Fixed:
+
+```c++
+class derived : public base {
+  public:
+  	void print(ostream &os) {
+      base::print(os);
+      os << " " << i;
+    }
+  private:
+  	int i;
+};
+```
+
+## 15.14
+
+> Given the classes from the previous exercise and the following objects, determine which function is called at run time;
+
+```c++
+base bobj;
+base *bp1 = &bobj;
+base &br1 = bobj;
+derived dobj;
+base *bp2 = &dobj;
+base &br2 = dobj;
+// 
+bobj.print(); // compile 
+dobj.print(); // compile
+bp1->name(); // compile
+bp2->name(); // compile
+br1.print(); // compile
+br2.print(); // run time
+```
+
+## 15.15、15.16、15.17
+
+> - Define your own versions of `Disc_quote` and `Bulk_quote`.
+> - Rewrite the class representing a limited discount strategy, which you wrote for the exercises int 15.2.2, to inherit from `Disc_quote`.
+> - Try to define an object of type `Disc_quote` and see what errors you get from the compiler.
+
+[code](./exercise15_15.cpp)
+
+```c++
+int main() {
+   Disc_quote d;
+}
+```
+
+errors from the compiler
+
+![](https://cdn.jsdelivr.net/gh/CarberryChai/oss@master/image/m891ty-qJVuLP.png)
