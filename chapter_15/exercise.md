@@ -175,3 +175,46 @@ int main() {
 errors from the compiler
 
 ![](https://cdn.jsdelivr.net/gh/CarberryChai/oss@master/image/m891ty-qJVuLP.png)
+
+## 15.18
+
+> Given the classes from page 612 and page 613, and assuming each object has the type specified in the comments, determine which of these assignments are legal. Explain why those that are ilegal aren't allowed:
+
+[code](./exercise15_18.cpp)
+
+> Whether the derived-to-base conversion is accessible depends on which code is trying to use the conversion and may depend on the access specifier used in the derived class derivation. Assuming D ingerits from B :
+>
+> - User code may use the derived-to-base conversion only if D inherits **publicly** from B. User code may not use the conversion if D inherits from B using either `protected` or `private`.
+
+## 15.19
+
+> Assume that each of the classes from page 612 and page 613 has a member function of the form:
+>
+> ```c++
+> void memfcn(Base &b) {
+>   b = *this;
+> }
+> ```
+>
+> For each class, determine whether this function would be legal.
+
+for `Derived_from_Private`, the `memfcn` member function is illegal.
+
+> Assuming D inherits from B
+>
+> Member functions and friends of classes derived from D may use the derived-to-base conversion if D inherits from B using either `public` or `protected`.such code may not use the conversion if D inherits privately from B.
+
+## 15.21 or 15.22
+
+> - Choose one of the following general abstractions containing a family of types (or choose one of your own). Organize the types into a inheritance hierarchy:
+>
+>   (a) Graphical file formats (such as gif, tiff, jpeg, bmp)
+>
+>   (b) Geometric primitives (such as box, circle, sphere, cone)
+>
+>   (c) C++ language types (such as class, function, member function)
+>
+> - For the class you chose in the previous exercise, identify some of the likely virtual functions as well as public and ptotected members.
+
+[code](./exercise15_22.cpp)
+
